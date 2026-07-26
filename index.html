@@ -39,6 +39,102 @@ html[data-theme="emerald"]{--navy:#064e3b;--navy2:#065f46;--gold:#10b981;--gold2
 body{transition:background .2s}
 body{font-family:var(--font);background:var(--cream);color:var(--navy);font-size:14px;overflow-x:hidden}
 
+/* ══════════════ GLASSMORPHISM MODE ══════════════ */
+body.glass-mode{
+  --gray1:rgba(255,255,255,.55);
+  --gray2:rgba(255,255,255,.16);
+  --gray3:rgba(255,255,255,.07);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(147,51,234,.35), transparent 40%),
+    radial-gradient(circle at 88% 15%, rgba(20,184,166,.30), transparent 42%),
+    radial-gradient(circle at 25% 85%, rgba(240,165,0,.22), transparent 45%),
+    radial-gradient(circle at 92% 90%, rgba(59,130,246,.30), transparent 42%),
+    linear-gradient(160deg,#0b0f1e 0%,#161129 45%,#0d1b2b 100%);
+  background-attachment:fixed;
+  color:#f1f2f6;
+}
+/* Elemen dengan teks navy inline (biasanya dipasangkan dengan bg gray3) perlu dipaksa terang juga */
+body.glass-mode [style*="color:var(--navy)"]{color:#f1f2f6!important}
+body.glass-mode [style*="color: var(--navy)"]{color:#f1f2f6!important}
+body.glass-mode #sidebar{
+  background:rgba(18,16,32,.45);
+  backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);
+  border-right:1px solid rgba(255,255,255,.10);
+}
+body.glass-mode .sidebar-logo{border-bottom-color:rgba(255,255,255,.10)}
+body.glass-mode .nav-item{color:rgba(255,255,255,.72)}
+body.glass-mode .nav-item:hover{background:rgba(255,255,255,.08);color:#fff}
+body.glass-mode .nav-item.active{background:linear-gradient(135deg,rgba(240,165,0,.85),rgba(240,165,0,.55));color:#1a1424;box-shadow:0 4px 18px rgba(240,165,0,.25)}
+body.glass-mode .nav-section{color:rgba(255,255,255,.35)}
+body.glass-mode .topbar{
+  background:rgba(20,18,36,.35);
+  backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+body.glass-mode .topbar-title{color:#fff}
+body.glass-mode .topbar-date{color:rgba(255,255,255,.5)}
+body.glass-mode .content{background:transparent}
+body.glass-mode .card,body.glass-mode .stat-card,body.glass-mode .modal,
+body.glass-mode .room-card,body.glass-mode .room-list-row,body.glass-mode .theme-swatch,
+body.glass-mode .layout-option,body.glass-mode .more-sheet-item,
+body.glass-mode .penyewa-card,body.glass-mode .bersih-kamar-btn,
+body.glass-mode .modal-head,body.glass-mode .modal-foot,
+body.glass-mode .notif-banner,body.glass-mode .qf-item,
+body.glass-mode .table-wrap table tr,body.glass-mode .fas-photo-item{
+  background:rgba(255,255,255,.07)!important;
+  backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);
+  border:1px solid rgba(255,255,255,.14)!important;
+  box-shadow:0 8px 32px rgba(0,0,0,.35)!important;
+  color:#f1f2f6;
+}
+/* Undo-bar: beri tint gelap sebelum blur supaya tidak "meng-hisap" warna blob jadi pelangi */
+body.glass-mode .undo-bar{
+  background:linear-gradient(rgba(10,8,22,.55),rgba(10,8,22,.55)),rgba(255,255,255,.05)!important;
+  backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%);
+  border-bottom:1px solid rgba(255,255,255,.10)!important;
+  color:#f1f2f6;
+}
+body.glass-mode .undo-bar span,body.glass-mode .undo-bar b{color:#f1f2f6!important}
+body.glass-mode .landing-preview-frame{
+  border:1px solid rgba(255,255,255,.16)!important;
+  box-shadow:0 12px 40px rgba(0,0,0,.45)!important;
+  padding:10px;background:rgba(255,255,255,.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-radius:18px;
+}
+body.glass-mode .landing-preview-frame > div{border-radius:10px;overflow:hidden}
+body.glass-mode .card-head{border-bottom-color:rgba(255,255,255,.10)}
+body.glass-mode .card-title,body.glass-mode .stat-value,body.glass-mode .room-name,
+body.glass-mode h3,body.glass-mode .rm-title,body.glass-mode .bk-name{color:#fff!important}
+body.glass-mode .stat-label,body.glass-mode .gray1,body.glass-mode td,
+body.glass-mode label,body.glass-mode .form-row label,body.glass-mode .bk-status{color:rgba(255,255,255,.55)!important}
+body.glass-mode th{background:rgba(255,255,255,.05)!important;color:rgba(255,255,255,.5)!important;border-bottom-color:rgba(255,255,255,.10)!important}
+body.glass-mode td{border-bottom-color:rgba(255,255,255,.08)!important;color:#f1f2f6!important}
+body.glass-mode tbody tr:hover td{background:rgba(255,255,255,.04)!important}
+body.glass-mode .table-wrap{border-color:rgba(255,255,255,.12)!important}
+body.glass-mode input,body.glass-mode select,body.glass-mode textarea{
+  background:rgba(255,255,255,.06)!important;border-color:rgba(255,255,255,.15)!important;color:#fff!important;
+}
+body.glass-mode input::placeholder,body.glass-mode textarea::placeholder{color:rgba(255,255,255,.35)!important}
+body.glass-mode .btn-ghost{background:rgba(255,255,255,.08)!important;color:#f1f2f6!important;border-color:rgba(255,255,255,.15)!important}
+body.glass-mode .gray3,body.glass-mode .view-switch,body.glass-mode #storage-usage-info{background:rgba(255,255,255,.06)!important}
+body.glass-mode .vs-btn{color:rgba(255,255,255,.55)}
+body.glass-mode .vs-btn.active{background:rgba(255,255,255,.16)!important;color:#fff!important}
+body.glass-mode .vs-dd-btn{background:rgba(255,255,255,.08)!important;border-color:rgba(255,255,255,.16)!important;color:rgba(255,255,255,.7)!important}
+body.glass-mode .vs-dd-btn:hover{background:rgba(255,255,255,.14)!important;color:#fff!important}
+body.glass-mode .vs-dd-menu{background:rgba(28,24,46,.85)!important;backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-color:rgba(255,255,255,.16)!important;box-shadow:0 12px 32px rgba(0,0,0,.5)!important}
+body.glass-mode .vs-dd-item{color:rgba(255,255,255,.75)!important}
+body.glass-mode .vs-dd-item:hover{background:rgba(255,255,255,.10)!important}
+body.glass-mode .vs-dd-item.active{background:rgba(240,165,0,.22)!important;color:var(--gold)!important}
+body.glass-mode #bottomnav{background:rgba(18,16,32,.55)!important;backdrop-filter:blur(22px) saturate(160%);border-top-color:rgba(255,255,255,.10)!important}
+body.glass-mode .bn-item{color:rgba(255,255,255,.5)}
+body.glass-mode .bn-item.active{color:#fff}
+body.glass-mode .empty-icon,body.glass-mode .rl-noimg,body.glass-mode .room-img{background:rgba(255,255,255,.05)!important;color:rgba(255,255,255,.3)!important}
+body.glass-mode .fas-pill{color:#f1f2f6!important;border-color:rgba(255,255,255,.16)!important}
+body.glass-mode .fas-pill.has-foto{background:rgba(240,165,0,.22)!important;color:var(--gold)!important;border-color:rgba(240,165,0,.5)!important}
+body.glass-mode .fas-photo-item{background:rgba(255,255,255,.06)!important}
+body.glass-mode .modal-overlay{background:rgba(5,4,14,.65)!important}
+
+
 /* ── SIDEBAR ── */
 #sidebar{width:240px;height:100%;max-height:100vh;background:var(--navy);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;overflow-y:auto;overflow-x:hidden;transition:transform .25s ease;-webkit-overflow-scrolling:touch}
 .sidebar-logo{padding:16px 18px 12px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:10px}
@@ -216,6 +312,16 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
 .vs-btn{border:none;background:none;padding:7px 10px;border-radius:8px;cursor:pointer;color:var(--gray1);display:flex;align-items:center;justify-content:center;transition:.15s}
 .vs-btn.active{background:var(--white);color:var(--gold);box-shadow:0 1px 4px rgba(0,0,0,.15)}
 .vs-btn svg{display:block}
+/* ── Konsolidasi mode tampilan jadi 1 ikon titik-tiga ── */
+.view-switch-dd{position:relative;margin-left:auto}
+.vs-dd-btn{width:34px;height:34px;border-radius:9px;border:1px solid var(--gray2);background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--gray1);transition:.15s}
+.vs-dd-btn:hover{background:var(--gray3);color:var(--gold)}
+.vs-dd-menu{display:none;position:absolute;right:0;top:calc(100% + 6px);background:var(--white);border:1px solid var(--gray2);border-radius:10px;box-shadow:var(--shadow2);padding:5px;min-width:150px;z-index:60}
+.vs-dd-menu.open{display:block}
+.vs-dd-item{display:flex;align-items:center;gap:9px;width:100%;padding:8px 10px;border:none;background:none;border-radius:7px;cursor:pointer;font-size:12.5px;font-weight:600;color:var(--navy);font-family:var(--font);text-align:left}
+.vs-dd-item svg{flex-shrink:0}
+.vs-dd-item:hover{background:var(--gray3)}
+.vs-dd-item.active{background:rgba(240,165,0,.14);color:var(--gold)}
 /* ── 3-column compact mode ── */
 .room-grid.view-baris3{grid-template-columns:repeat(3,1fr)}
 @media(max-width:820px){.room-grid.view-baris3{grid-template-columns:repeat(2,1fr)}}
@@ -232,6 +338,17 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
 .room-list-row .rl-body{flex:1;min-width:0}
 .room-list-row .rl-actions{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap}
 /* ── Gallery hover-expand mode ── */
+/* ── Fasilitas: pill bisa diklik untuk upload/lihat foto ── */
+.fas-pills-edit{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px;margin-bottom:4px}
+.fas-pill{display:inline-flex;align-items:center;gap:5px;background:var(--gray3);border:1px solid var(--gray2);color:var(--navy);font-size:11.5px;font-weight:600;padding:6px 11px;border-radius:20px;cursor:pointer;font-family:var(--font);transition:.15s}
+.fas-pill:hover{background:var(--gray2)}
+.fas-pill.has-foto{background:rgba(240,165,0,.14);border-color:rgba(240,165,0,.4);color:var(--gold)}
+.fas-pill-dot,.fas-pill-plus{display:inline-flex;align-items:center;opacity:.75}
+.fas-pill-plus{font-weight:800;font-size:12px}
+.fas-foto-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px}
+.fas-photo-item{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1;background:var(--gray3)}
+.fas-photo-item img{width:100%;height:100%;object-fit:cover;display:block}
+.fas-photo-item button{position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;border:none;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center}
 .room-gallery{display:flex;gap:10px;height:340px;overflow-x:auto;padding-bottom:6px}
 .room-gallery .rg-item{position:relative;flex:0 0 12%;min-width:70px;border-radius:12px;overflow:hidden;cursor:pointer;transition:flex-basis .5s ease-in-out;background:var(--gray3)}
 .room-gallery .rg-item:hover,.room-gallery .rg-item:focus{flex:0 0 30%}
@@ -507,7 +624,8 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
           <div class="form-row"><label>Tipe Kos</label><select id="profil-tipe"><option value="campur">Campur</option><option value="putra">Putra</option><option value="putri">Putri</option></select></div>
         </div>
         <div class="form-row"><label>Deskripsi</label><textarea id="profil-deskripsi" rows="3" placeholder="Keunggulan dan fasilitas kos Anda..."></textarea></div>
-        <div class="form-row"><label>Fasilitas Umum <span class="hint">(pisah koma)</span></label><input type="text" id="profil-fasilitas" placeholder="Wi-Fi, Dapur, Parkir, CCTV"></div>
+        <div class="form-row"><label>Fasilitas Umum <span class="hint">(pisah koma)</span></label><input type="text" id="profil-fasilitas" placeholder="Wi-Fi, Dapur, Parkir, CCTV" oninput="renderFasilitasPills('profil-fasilitas-pills','umum',null,this.value)"></div>
+        <div id="profil-fasilitas-pills" class="fas-pills-edit"></div>
         <button class="btn btn-primary" onclick="saveProfil()">💾 Simpan Profil</button>
       </div></div>
     </div>
@@ -516,11 +634,14 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
     <div id="page-kamar" class="page">
       <div class="stats-grid" id="kamar-stats"></div>
       <div class="card"><div class="card-head"><span class="ic-head"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="M2 9v9"/><path d="M2 13h20"/><path d="M22 9v9"/><path d="M4 13V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1"/><path d="M12 8h4a2 2 0 0 1 2 2v3"/></svg></span><span class="card-title">Tipe & Daftar Kamar</span>
-        <div class="view-switch" id="kamar-view-switch">
-          <button class="vs-btn active" data-mode="besar" onclick="setKamarViewMode('besar')" title="Tampilan Besar"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><rect x="4" y="4" width="16" height="16" rx="2"/></svg></button>
-          <button class="vs-btn" data-mode="baris3" onclick="setKamarViewMode('baris3')" title="3 Kolom"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="9.5" y="4" width="5" height="16" rx="1"/><rect x="16" y="4" width="5" height="16" rx="1"/></svg></button>
-          <button class="vs-btn" data-mode="detail" onclick="setKamarViewMode('detail')" title="Mode Detail"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></button>
-          <button class="vs-btn" data-mode="galeri" onclick="setKamarViewMode('galeri')" title="Galeri Hover (spotlight)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></button>
+        <div class="view-switch-dd" id="kamar-view-switch">
+          <button class="vs-dd-btn" onclick="toggleViewDropdown('kamar')" title="Tampilan"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button>
+          <div class="vs-dd-menu" id="kamar-view-menu">
+            <button class="vs-dd-item active" data-mode="besar" onclick="setKamarViewMode('besar')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>Besar</button>
+            <button class="vs-dd-item" data-mode="baris3" onclick="setKamarViewMode('baris3')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="9.5" y="4" width="5" height="16" rx="1"/><rect x="16" y="4" width="5" height="16" rx="1"/></svg>3 Kolom</button>
+            <button class="vs-dd-item" data-mode="detail" onclick="setKamarViewMode('detail')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Detail</button>
+            <button class="vs-dd-item" data-mode="galeri" onclick="setKamarViewMode('galeri')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Galeri</button>
+          </div>
         </div>
       </div>
       <div class="card-body"><div class="room-grid" id="kamar-grid"></div></div></div>
@@ -709,6 +830,22 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
           <div class="theme-grid" id="theme-grid"></div>
         </div>
       </div>
+      <div class="card"><div class="card-head"><span class="ic-head"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span><span class="card-title">Efek Kaca Transparan (Glassmorphism)</span></div>
+        <div class="card-body">
+          <p style="font-size:12.5px;color:var(--gray1);line-height:1.6;margin-bottom:14px">Ubah tampilan jadi latar gradasi gelap dengan kartu kaca buram transparan (blur), mirip gaya UI modern yang lagi tren. Bisa dinyalakan bersama tema warna apa pun di atas.</p>
+          <div style="display:flex;align-items:center;gap:12px;background:var(--gray3);padding:12px 16px;border-radius:12px">
+            <div style="position:relative;display:inline-block;width:44px;height:26px;flex-shrink:0;cursor:pointer" onclick="toggleGlassMode()">
+              <input type="checkbox" id="glass-mode-toggle" tabindex="-1" style="opacity:0;width:0;height:0;position:absolute;pointer-events:none">
+              <span id="glass-toggle-track" style="position:absolute;inset:0;background:#d1d5db;border-radius:26px;transition:.2s;pointer-events:none"></span>
+              <span id="glass-toggle-knob" style="position:absolute;left:3px;top:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:.2s;pointer-events:none;box-shadow:0 1px 3px rgba(0,0,0,.3)"></span>
+            </div>
+            <div style="flex:1">
+              <div style="font-weight:700;font-size:13px;color:var(--navy)">Mode Kaca Transparan</div>
+              <div style="font-size:11px;color:var(--gray1)" id="glass-mode-status">Nonaktif</div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="card"><div class="card-head"><span class="ic-head"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg></span><span class="card-title">Tata Letak Menu</span></div>
         <div class="card-body">
           <div class="layout-grid">
@@ -800,7 +937,8 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
           <select id="kamar-request"><option value="tidak">Tidak</option><option value="ya">Ya — Ada yang Minta</option></select>
         </div>
       </div>
-      <div class="form-row"><label>Fasilitas <span class="hint">(pisah koma)</span></label><input type="text" id="kamar-fasilitas" placeholder="Kasur, Lemari, Meja, AC"></div>
+      <div class="form-row"><label>Fasilitas <span class="hint">(pisah koma)</span></label><input type="text" id="kamar-fasilitas" placeholder="Kasur, Lemari, Meja, AC" oninput="renderFasilitasPills('kamar-fasilitas-pills','kamar',document.getElementById('kamar-edit-id').value||'_new',this.value)"></div>
+      <div id="kamar-fasilitas-pills" class="fas-pills-edit"></div>
       <div class="form-row"><label>Deskripsi</label><textarea id="kamar-deskripsi" rows="2" placeholder="Keterangan tambahan..."></textarea></div>
       <div class="form-row"><label>Foto-foto Kamar</label>
         <div class="img-upload-zone" onclick="document.getElementById('kamar-foto-input').click()">
@@ -1156,6 +1294,27 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
   </div>
 </div>
 
+<div id="modal-fasilitas-foto" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-head"><span class="ic-head"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span>
+      <div style="flex:1;min-width:0">
+        <h3 id="fas-modal-title" style="margin-bottom:1px">Fasilitas</h3>
+        <div id="fas-modal-sub" style="font-size:11px;color:var(--gray1);font-weight:600"></div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="closeModal('modal-fasilitas-foto')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:12px;color:var(--gray1);margin-bottom:12px;line-height:1.6">Upload foto merk/bentuk fasilitas ini (misal: foto AC, merk kasur, dispenser) supaya pengunjung Landing Page bisa lihat langsung wujud aslinya saat klik fasilitas ini.</p>
+      <div id="fas-foto-preview" class="fas-foto-grid"></div>
+      <label class="btn btn-ghost" style="width:100%;margin-top:12px;cursor:pointer;justify-content:center">
+        📷 Tambah Foto
+        <input type="file" accept="image/*" multiple onchange="handleFasFotoUpload(event)" style="display:none">
+      </label>
+      <button class="btn btn-primary" style="width:100%;margin-top:8px" onclick="saveFasilitasFoto()">💾 Simpan</button>
+    </div>
+  </div>
+</div>
+
 <div id="modal-more" class="modal-overlay">
   <div class="modal">
     <div class="modal-head"><span class="ic-head"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></span><h3>Menu Lainnya</h3><button class="btn btn-ghost btn-sm" onclick="closeModal('modal-more')">✕</button></div>
@@ -1212,45 +1371,60 @@ const KEYS = {
 // daripada localStorage, cocok untuk foto asli beresolusi tinggi)
 // ============================================================
 let kamarPhotosCache={};
+let fasilitasFotoCache={};
 function openPhotoDB(){
   return new Promise((resolve,reject)=>{
-    const req=indexedDB.open('sikos_photos_db',1);
-    req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains('kamarFoto'))db.createObjectStore('kamarFoto');};
+    const req=indexedDB.open('sikos_photos_db',2);
+    req.onupgradeneeded=()=>{
+      const db=req.result;
+      if(!db.objectStoreNames.contains('kamarFoto'))db.createObjectStore('kamarFoto');
+      if(!db.objectStoreNames.contains('fasilitasFoto'))db.createObjectStore('fasilitasFoto');
+    };
     req.onsuccess=()=>resolve(req.result);
     req.onerror=()=>reject(req.error);
   });
 }
-async function idbGetAllPhotos(){
+function fasKey(scope,idOrNull,namaFasilitas){
+  const norm=String(namaFasilitas||'').trim().toLowerCase();
+  return scope==='umum' ? ('umum::'+norm) : ('kamar::'+idOrNull+'::'+norm);
+}
+async function idbGetAllFromStore(storeName){
   try{
     const db=await openPhotoDB();
     return await new Promise((resolve,reject)=>{
-      const tx=db.transaction('kamarFoto','readonly');const store=tx.objectStore('kamarFoto');
+      const tx=db.transaction(storeName,'readonly');const store=tx.objectStore(storeName);
       const out={};const cursorReq=store.openCursor();
       cursorReq.onsuccess=e=>{const cur=e.target.result;if(cur){out[cur.key]=cur.value;cur.continue();}else resolve(out);};
       cursorReq.onerror=()=>reject(cursorReq.error);
     });
-  }catch(e){console.warn('IndexedDB tidak tersedia, fallback ke memori saja',e);return {};}
+  }catch(e){console.warn('IndexedDB tidak tersedia untuk '+storeName,e);return {};}
 }
-async function idbSetPhotos(kamarId,arr){
+async function idbSetInStore(storeName,key,value){
   try{
     const db=await openPhotoDB();
     return await new Promise((resolve,reject)=>{
-      const tx=db.transaction('kamarFoto','readwrite');
-      tx.objectStore('kamarFoto').put(arr,kamarId);
+      const tx=db.transaction(storeName,'readwrite');
+      tx.objectStore(storeName).put(value,key);
       tx.oncomplete=()=>resolve(true);tx.onerror=()=>reject(tx.error);
     });
-  }catch(e){console.warn('Gagal simpan foto ke IndexedDB',e);return false;}
+  }catch(e){console.warn('Gagal simpan ke '+storeName,e);return false;}
 }
-async function idbDeletePhotos(kamarId){
+async function idbDeleteFromStore(storeName,key){
   try{
     const db=await openPhotoDB();
     return await new Promise((resolve,reject)=>{
-      const tx=db.transaction('kamarFoto','readwrite');
-      tx.objectStore('kamarFoto').delete(kamarId);
+      const tx=db.transaction(storeName,'readwrite');
+      tx.objectStore(storeName).delete(key);
       tx.oncomplete=()=>resolve(true);tx.onerror=()=>reject(tx.error);
     });
   }catch(e){return false;}
 }
+async function preloadFasilitasFoto(){
+  fasilitasFotoCache=await idbGetAllFromStore('fasilitasFoto');
+}
+async function idbGetAllPhotos(){ return idbGetAllFromStore('kamarFoto'); }
+async function idbSetPhotos(kamarId,arr){ return idbSetInStore('kamarFoto',kamarId,arr); }
+async function idbDeletePhotos(kamarId){ return idbDeleteFromStore('kamarFoto',kamarId); }
 // Kompres & resize gambar sebelum disimpan (hemat ruang, tetap tajam)
 function compressImage(file,maxDim=1280,quality=0.78){
   return new Promise((resolve,reject)=>{
@@ -1272,6 +1446,54 @@ function compressImage(file,maxDim=1280,quality=0.78){
     reader.onerror=reject;
     reader.readAsDataURL(file);
   });
+}
+// ============================================================
+// FOTO PER-FASILITAS (klik fasilitas -> lihat/upload foto merk/bentuknya)
+// ============================================================
+function renderFasilitasPills(containerId,scope,kamarId,fasilitasStr){
+  const el=document.getElementById(containerId);if(!el)return;
+  const list=String(fasilitasStr||'').split(',').map(s=>s.trim()).filter(Boolean);
+  if(!list.length){el.innerHTML='';return;}
+  el.innerHTML=list.map(nama=>{
+    const key=fasKey(scope,kamarId,nama);
+    const hasFoto=fasilitasFotoCache[key]&&fasilitasFotoCache[key].length>0;
+    return `<button type="button" class="fas-pill${hasFoto?' has-foto':''}" onclick="openFasilitasFotoModal('${scope}',${kamarId?`'${kamarId}'`:'null'},'${nama.replace(/'/g,"\\'")}')">
+      ${escHtml(nama)}${hasFoto?` <span class="fas-pill-dot">${IC('image',11)}</span>`:` <span class="fas-pill-plus">+</span>`}
+    </button>`;
+  }).join('');
+}
+let _fasCurrentKey=null,_fasCurrentScope=null,_fasCurrentKamarId=null,_fasCurrentNama=null,_fasCurrentContainerId=null,_fasTempFotos=[];
+function openFasilitasFotoModal(scope,kamarId,namaFasilitas,refreshContainerId){
+  _fasCurrentScope=scope;_fasCurrentKamarId=kamarId;_fasCurrentNama=namaFasilitas;
+  _fasCurrentKey=fasKey(scope,kamarId,namaFasilitas);
+  _fasCurrentContainerId=refreshContainerId||_fasCurrentContainerId;
+  _fasTempFotos=[...(fasilitasFotoCache[_fasCurrentKey]||[])];
+  document.getElementById('fas-modal-title').textContent='📷 '+namaFasilitas;
+  document.getElementById('fas-modal-sub').textContent=scope==='umum' ? 'Fasilitas umum kos' : 'Fasilitas kamar ini';
+  renderFasFotoPreview();
+  openModal('modal-fasilitas-foto');
+}
+function renderFasFotoPreview(){
+  const wrap=document.getElementById('fas-foto-preview');
+  if(!_fasTempFotos.length){wrap.innerHTML='<p style="text-align:center;color:var(--gray1);font-size:12.5px;padding:20px 0;grid-column:1/-1">Belum ada foto. Upload foto merk/bentuk fasilitas ini supaya penyewa lebih yakin.</p>';return;}
+  wrap.innerHTML=_fasTempFotos.map((f,i)=>`<div class="fas-photo-item"><img src="${f}"><button type="button" onclick="removeFasFoto(${i})">✕</button></div>`).join('');
+}
+function removeFasFoto(i){_fasTempFotos.splice(i,1);renderFasFotoPreview();}
+function handleFasFotoUpload(e){
+  const files=Array.from(e.target.files);if(!files.length)return;
+  showToast('Memproses '+files.length+' foto…','info');
+  Promise.all(files.map(f=>compressImage(f))).then(b64s=>{_fasTempFotos.push(...b64s);renderFasFotoPreview();});
+  e.target.value='';
+}
+async function saveFasilitasFoto(){
+  fasilitasFotoCache[_fasCurrentKey]=[..._fasTempFotos];
+  if(_fasTempFotos.length)await idbSetInStore('fasilitasFoto',_fasCurrentKey,_fasTempFotos);
+  else await idbDeleteFromStore('fasilitasFoto',_fasCurrentKey);
+  closeModal('modal-fasilitas-foto');
+  showToast('Foto fasilitas "'+_fasCurrentNama+'" disimpan');
+  // refresh semua pill container yang mungkin sedang tampil
+  const pf=document.getElementById('profil-fasilitas');if(pf)renderFasilitasPills('profil-fasilitas-pills','umum',null,pf.value);
+  const kf=document.getElementById('kamar-fasilitas');if(kf)renderFasilitasPills('kamar-fasilitas-pills','kamar',document.getElementById('kamar-edit-id').value||'_new',kf.value);
 }
 // Migrasi: foto lama yang masih tersimpan langsung di localStorage (record kamar)
 // dipindahkan ke IndexedDB, lalu dibersihkan dari localStorage supaya hemat kuota.
@@ -1422,6 +1644,23 @@ function renderThemeGrid(){
       <div class="sw-name">${t.name}</div>
     </div>`).join('');
 }
+function applyGlassMode(on){
+  document.body.classList.toggle('glass-mode',!!on);
+  localStorage.setItem('sikos_glass_mode',on?'1':'0');
+  const cb=document.getElementById('glass-mode-toggle');
+  const track=document.getElementById('glass-toggle-track');
+  const knob=document.getElementById('glass-toggle-knob');
+  const status=document.getElementById('glass-mode-status');
+  if(cb)cb.checked=!!on;
+  if(track)track.style.background=on?'var(--gold)':'#d1d5db';
+  if(knob)knob.style.left=on?'21px':'3px';
+  if(status)status.textContent=on?'Aktif':'Nonaktif';
+}
+function toggleGlassMode(){
+  const on=!document.body.classList.contains('glass-mode');
+  applyGlassMode(on);
+  showToast('Mode Kaca Transparan: '+(on?'Aktif ✨':'Nonaktif'));
+}
 function applyLayoutMode(mode){
   document.body.classList.toggle('layout-bottom',mode==='bottom');
   localStorage.setItem('sikos_layout',mode);
@@ -1474,6 +1713,7 @@ function setLayoutMode(mode){
 }
 async function renderPengaturan(){
   renderThemeGrid();
+  applyGlassMode(document.body.classList.contains('glass-mode'));
   const mode=localStorage.getItem('sikos_layout')||'sidebar';
   document.getElementById('layout-opt-sidebar')?.classList.toggle('active',mode==='sidebar');
   document.getElementById('layout-opt-bottom')?.classList.toggle('active',mode==='bottom');
@@ -1773,12 +2013,14 @@ function loadProfilForm(){
   const pv=document.getElementById('profil-foto-preview'),ph=document.getElementById('profil-foto-placeholder');
   if(p.foto){pv.src=p.foto;pv.style.display='';ph.style.display='none';}
   else{pv.style.display='none';ph.style.display='flex';}
+  renderFasilitasPills('profil-fasilitas-pills','umum',null,p.fasilitas||'');
 }
 function saveProfil(){
   const nama=document.getElementById('profil-nama').value.trim();
   if(!nama){showToast('Nama kos wajib diisi','error');return;}
   saveObj(KEYS.profil,{nama,alamat:document.getElementById('profil-alamat').value.trim(),telp:document.getElementById('profil-telp').value.trim(),tipe:document.getElementById('profil-tipe').value,deskripsi:document.getElementById('profil-deskripsi').value.trim(),fasilitas:document.getElementById('profil-fasilitas').value.trim(),foto:_profilFotoTemp||''},'Simpan Profil Kos');
   showToast('Profil kos berhasil disimpan');updateSidebarBrand();
+  renderFasilitasPills('profil-fasilitas-pills','umum',null,document.getElementById('profil-fasilitas').value);
 }
 function updateSidebarBrand(){
   const p=loadObj(KEYS.profil,{});
@@ -1832,6 +2074,7 @@ function openKamarModal(editId=null){
     document.getElementById('kamar-request').value='tidak';
   }
   renderKamarFotoPreview();
+  renderFasilitasPills('kamar-fasilitas-pills','kamar',editId||'_new',document.getElementById('kamar-fasilitas').value);
   openModal('modal-kamar');
 }
 function saveKamar(){
@@ -1839,14 +2082,29 @@ function saveKamar(){
   const nama=document.getElementById('kamar-nama').value.trim();
   if(!nama){showToast('Nama kamar wajib diisi','error');return;}
   const fotoArr=[..._kamarFotoTemp];
-  const data={nama,harga:Number(document.getElementById('kamar-harga').value)||0,ukuran:document.getElementById('kamar-ukuran').value.trim(),meteran:document.getElementById('kamar-meteran').value.trim(),stok:Number(document.getElementById('kamar-stok').value)||1,status:document.getElementById('kamar-status').value,request:document.getElementById('kamar-request').value,fasilitas:document.getElementById('kamar-fasilitas').value.trim(),deskripsi:document.getElementById('kamar-deskripsi').value.trim(),foto:[]};
+  const fasilitasStr=document.getElementById('kamar-fasilitas').value.trim();
+  const data={nama,harga:Number(document.getElementById('kamar-harga').value)||0,ukuran:document.getElementById('kamar-ukuran').value.trim(),meteran:document.getElementById('kamar-meteran').value.trim(),stok:Number(document.getElementById('kamar-stok').value)||1,status:document.getElementById('kamar-status').value,request:document.getElementById('kamar-request').value,fasilitas:fasilitasStr,deskripsi:document.getElementById('kamar-deskripsi').value.trim(),foto:[]};
   let arr=load(KEYS.kamar);
   let finalId=editId;
+  const isNew=!editId;
   if(editId){arr=arr.map(x=>x.id===editId?{...x,...data}:x);showToast('Kamar diupdate');}
   else{finalId=genId();arr.push({id:finalId,...data});showToast('Kamar ditambahkan');}
   save(KEYS.kamar,arr,'Simpan Kamar: '+nama);
   kamarPhotosCache[finalId]=fotoArr;
   idbSetPhotos(finalId,fotoArr);
+  if(isNew){
+    // Pindahkan foto fasilitas yang sempat diupload sebelum kamar disimpan (key sementara '_new') ke id kamar yang asli
+    fasilitasStr.split(',').map(s=>s.trim()).filter(Boolean).forEach(async nm=>{
+      const tempKey=fasKey('kamar','_new',nm);
+      if(fasilitasFotoCache[tempKey]&&fasilitasFotoCache[tempKey].length){
+        const realKey=fasKey('kamar',finalId,nm);
+        fasilitasFotoCache[realKey]=fasilitasFotoCache[tempKey];
+        await idbSetInStore('fasilitasFoto',realKey,fasilitasFotoCache[tempKey]);
+        delete fasilitasFotoCache[tempKey];
+        await idbDeleteFromStore('fasilitasFoto',tempKey);
+      }
+    });
+  }
   closeModal('modal-kamar');renderKamar();
 }
 function duplikasiKamar(){
@@ -1870,9 +2128,19 @@ function deleteKamar(id){
   showToast('Kamar dihapus');renderKamar();
 }
 function getKamarViewMode(){return localStorage.getItem('sikos_kamar_view')||'besar';}
+function toggleViewDropdown(key){
+  const menu=document.getElementById(key+'-view-menu');if(!menu)return;
+  const isOpen=menu.classList.contains('open');
+  document.querySelectorAll('.vs-dd-menu').forEach(m=>m.classList.remove('open'));
+  if(!isOpen)menu.classList.add('open');
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.view-switch-dd')) document.querySelectorAll('.vs-dd-menu').forEach(m=>m.classList.remove('open'));
+});
 function setKamarViewMode(mode){
   localStorage.setItem('sikos_kamar_view',mode);
-  document.querySelectorAll('#kamar-view-switch .vs-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
+  document.querySelectorAll('#kamar-view-menu .vs-dd-item').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
+  document.querySelectorAll('.vs-dd-menu').forEach(m=>m.classList.remove('open'));
   renderKamar();
 }
 function roomCardHtml(k){
@@ -1941,7 +2209,7 @@ function renderKamar(){
     <div class="stat-card gold"><div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6"/><path d="M15.5 7.5l3 3L22 7l-3-3"/></svg></div><div class="stat-label">Kosong</div><div class="stat-value">${kosong}</div></div>
     <div class="stat-card orange"><div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class="stat-label">Ada Request</div><div class="stat-value">${req}</div></div>`;
   const mode=getKamarViewMode();
-  document.querySelectorAll('#kamar-view-switch .vs-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
+  document.querySelectorAll('#kamar-view-menu .vs-dd-item').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
   const grid=document.getElementById('kamar-grid');
   if(!all.length){grid.className='room-grid';grid.innerHTML='<div class="empty-state"><div class="empty-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="M2 9v9"/><path d="M2 13h20"/><path d="M22 9v9"/><path d="M4 13V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1"/><path d="M12 8h4a2 2 0 0 1 2 2v3"/></svg></div><p>Belum ada kamar. Klik + Tambah.</p></div>';return;}
   if(mode==='detail'){
@@ -1965,11 +2233,21 @@ function buildLandingHtml(){
   const namaKos=escHtml(p.nama||'Nama Kos');
   const fasArr=(p.fasilitas||'').split(',').map(s=>s.trim()).filter(Boolean);
   const wa=p.telp?`https://wa.me/${p.telp.replace(/^0/,'62').replace(/\\D/g,'')}`:'#';
-  const roomsData=kamar.map(k=>({nama:k.nama||'',harga:k.harga||0,status:k.status||'',ukuran:k.ukuran||'',meteran:k.meteran||'',fasilitas:k.fasilitas||'',deskripsi:k.deskripsi||'',foto:k.foto||[]}));
+  const fasUmumFoto={};
+  fasArr.forEach(nm=>{const key=fasKey('umum',null,nm);if(fasilitasFotoCache[key]&&fasilitasFotoCache[key].length)fasUmumFoto[nm.toLowerCase()]=fasilitasFotoCache[key];});
+  const fasUmumFotoJson=JSON.stringify(fasUmumFoto).replace(/</g,'\\u003c');
+  const roomsData=kamar.map(k=>{
+    const fasFoto={};
+    (k.fasilitas||'').split(',').map(s=>s.trim()).filter(Boolean).forEach(nm=>{
+      const key=fasKey('kamar',k.id,nm);
+      if(fasilitasFotoCache[key]&&fasilitasFotoCache[key].length)fasFoto[nm.toLowerCase()]=fasilitasFotoCache[key];
+    });
+    return {nama:k.nama||'',harga:k.harga||0,status:k.status||'',ukuran:k.ukuran||'',meteran:k.meteran||'',fasilitas:k.fasilitas||'',deskripsi:k.deskripsi||'',foto:k.foto||[],fasFoto};
+  });
   const roomsDataJson=JSON.stringify(roomsData).replace(/</g,'\\u003c');
   const hasRooms=kamar.length>0;
   return`<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${namaKos}</title>
-<style>*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}body{background:#f8f7f3;color:#1a2744}.hero{background:linear-gradient(135deg,#1a2744,#253258);color:#fff;padding:56px 20px 72px;text-align:center;position:relative}.hero h1{font-size:30px;font-weight:800;margin-bottom:8px}.hero .addr{font-size:13px;opacity:.7;max-width:460px;margin:0 auto 14px}.hero p{max-width:540px;margin:0 auto;font-size:14px;opacity:.9;line-height:1.6}.cta-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}.cta{display:inline-flex;align-items:center;gap:8px;background:#f0a500;color:#1a2744;font-weight:700;padding:12px 26px;border-radius:50px;text-decoration:none;font-size:14px;border:none;cursor:pointer;font-family:inherit}.cta.outline{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3)}.sec{max-width:960px;margin:0 auto;padding:44px 20px}.sec h2{font-size:20px;font-weight:800;margin-bottom:18px;text-align:center}.pills{display:flex;flex-wrap:wrap;gap:9px;justify-content:center}.pill{background:#fff;border:1px solid #e5e7eb;padding:8px 16px;border-radius:28px;font-size:13px;font-weight:600}.rooms{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}.footer{background:#1a2744;color:rgba(255,255,255,.6);text-align:center;padding:24px 20px;font-size:12px}.footer a{color:#f0a500;font-weight:700;text-decoration:none}@media(max-width:600px){.hero h1{font-size:22px}}
+<style>*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}body{background:#f8f7f3;color:#1a2744}.hero{background:linear-gradient(135deg,#1a2744,#253258);color:#fff;padding:56px 20px 72px;text-align:center;position:relative}.hero h1{font-size:30px;font-weight:800;margin-bottom:8px}.hero .addr{font-size:13px;opacity:.7;max-width:460px;margin:0 auto 14px}.hero p{max-width:540px;margin:0 auto;font-size:14px;opacity:.9;line-height:1.6}.cta-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}.cta{display:inline-flex;align-items:center;gap:8px;background:#f0a500;color:#1a2744;font-weight:700;padding:12px 26px;border-radius:50px;text-decoration:none;font-size:14px;border:none;cursor:pointer;font-family:inherit}.cta.outline{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3)}.sec{max-width:960px;margin:0 auto;padding:44px 20px}.sec h2{font-size:20px;font-weight:800;margin-bottom:18px;text-align:center}.pills{display:flex;flex-wrap:wrap;gap:9px;justify-content:center}.pill{background:#fff;border:1px solid #e5e7eb;padding:8px 16px;border-radius:28px;font-size:13px;font-weight:600;cursor:pointer;transition:.15s}.pill:hover{background:#f3f4f6;transform:translateY(-1px)}.pill.has-foto{background:#fef3d9;border-color:#f0d493;color:#92680a}.rooms{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}.footer{background:#1a2744;color:rgba(255,255,255,.6);text-align:center;padding:24px 20px;font-size:12px}.footer a{color:#f0a500;font-weight:700;text-decoration:none}@media(max-width:600px){.hero h1{font-size:22px}}
 .room-modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,20,35,.75);z-index:500;align-items:center;justify-content:center;padding:16px}
 .room-modal-overlay.open{display:flex}
 .room-modal{background:#fff;border-radius:16px;max-width:480px;width:100%;max-height:92vh;overflow-y:auto;position:relative;animation:rmIn .18s ease}
@@ -2001,10 +2279,30 @@ function buildLandingHtml(){
 .fs-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);color:#fff;border:none;width:42px;height:42px;border-radius:50%;font-size:20px;cursor:pointer;z-index:2}
 .fs-prev{left:14px}.fs-next{right:14px}
 .fs-counter{position:absolute;bottom:20px;left:0;right:0;text-align:center;color:#fff;font-size:12px;background:rgba(255,255,255,.15);width:fit-content;margin:0 auto;padding:4px 14px;border-radius:20px}
-.view-switch{display:inline-flex;background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:3px;gap:2px;margin:0 auto 22px;width:fit-content}
-.vs-btn{border:none;background:none;padding:8px 13px;border-radius:8px;cursor:pointer;color:#6b7280;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;font-family:inherit}
-.vs-btn.active{background:#1a2744;color:#fff}
-.vs-btn svg{display:block;flex-shrink:0}
+.fas-lb-overlay{display:none;position:fixed;inset:0;background:rgba(15,20,35,.8);z-index:700;align-items:center;justify-content:center;padding:16px}
+.fas-lb-overlay.open{display:flex}
+.fas-lb-box{background:#fff;border-radius:16px;max-width:420px;width:100%;max-height:88vh;overflow-y:auto;position:relative}
+.fas-lb-close{position:absolute;top:10px;right:10px;z-index:5;background:rgba(0,0,0,.55);color:#fff;border:none;width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer}
+.fas-lb-img-wrap{position:relative;background:#f3f4f6;height:260px}
+.fas-lb-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.fas-lb-nav{position:absolute;bottom:8px;left:0;right:0;display:none;align-items:center;justify-content:center;gap:14px}
+.fas-lb-nav.show{display:flex}
+.fas-lb-nav button{background:rgba(0,0,0,.55);color:#fff;border:none;width:28px;height:28px;border-radius:50%;font-size:15px;cursor:pointer}
+.fas-lb-nav span{background:rgba(0,0,0,.55);color:#fff;font-size:11px;padding:3px 9px;border-radius:20px}
+.fas-lb-body{padding:18px 20px 22px;text-align:center}
+.fas-lb-body h3{font-size:16px;font-weight:800;margin-bottom:4px}
+.fas-lb-body p{font-size:12px;color:#6b7280}
+.sec-head-row{display:flex;align-items:center;justify-content:center;position:relative;margin-bottom:18px}
+.sec-head-row h2{margin-bottom:0}
+.view-switch-dd{position:absolute;right:0;top:50%;transform:translateY(-50%)}
+.vs-dd-btn{width:36px;height:36px;border-radius:9px;border:1px solid #e5e7eb;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#6b7280}
+.vs-dd-btn:hover{background:#f3f4f6;color:#1a2744}
+.vs-dd-menu{display:none;position:absolute;right:0;top:calc(100% + 6px);background:#fff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.15);padding:5px;min-width:150px;z-index:60}
+.vs-dd-menu.open{display:block}
+.vs-dd-item{display:flex;align-items:center;gap:9px;width:100%;padding:9px 11px;border:none;background:none;border-radius:7px;cursor:pointer;font-size:12.5px;font-weight:700;color:#374151;font-family:inherit;text-align:left}
+.vs-dd-item svg{flex-shrink:0}
+.vs-dd-item:hover{background:#f3f4f6}
+.vs-dd-item.active{background:#fef3d9;color:#f0a500}
 .room-card-lp{cursor:pointer;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 18px rgba(26,39,68,.08);transition:transform .15s}
 .room-card-lp:hover{transform:translateY(-3px)}
 .room-card-lp .rc-img{width:100%;height:160px;object-fit:cover;display:block}
@@ -2032,14 +2330,18 @@ function buildLandingHtml(){
 <div class="hero">${p.foto?`<img src="${p.foto}" style="width:78px;height:78px;border-radius:14px;object-fit:cover;margin-bottom:14px;border:3px solid rgba(255,255,255,.2)">`:''}
 <h1>${namaKos}</h1><div class="addr">📍 ${escHtml(p.alamat||'')}</div><p>${escHtml(p.deskripsi||'')}</p>
 <div class="cta-row"><a class="cta" href="${wa}" target="_blank">💬 Hubungi via WhatsApp</a><button class="cta outline" onclick="sharePage()">🔗 Bagikan Halaman</button></div></div>
-${fasArr.length?`<div class="sec"><h2>Fasilitas Umum</h2><div class="pills">${fasArr.map(f=>`<div class="pill">${escHtml(f)}</div>`).join('')}</div></div>`:''}
-<div class="sec"><h2>Pilihan Kamar</h2>
-${hasRooms?`<div class="view-switch" id="rooms-view-switch">
-  <button class="vs-btn" data-mode="besar" onclick="setRoomsView('besar')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>Besar</button>
-  <button class="vs-btn" data-mode="baris3" onclick="setRoomsView('baris3')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="9.5" y="4" width="5" height="16" rx="1"/><rect x="16" y="4" width="5" height="16" rx="1"/></svg>3 Kolom</button>
-  <button class="vs-btn" data-mode="detail" onclick="setRoomsView('detail')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Detail</button>
-  <button class="vs-btn" data-mode="galeri" onclick="setRoomsView('galeri')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Galeri</button>
+${fasArr.length?`<div class="sec"><h2>Fasilitas Umum</h2><div class="pills">${fasArr.map(f=>`<div class="pill${fasUmumFoto[f.toLowerCase()]?' has-foto':''}" onclick="openFasLightbox('umum',-1,${JSON.stringify(f).replace(/"/g,'&quot;')})">${escHtml(f)}${fasUmumFoto[f.toLowerCase()]?' 📷':''}</div>`).join('')}</div></div>`:''}
+<div class="sec"><div class="sec-head-row"><h2 style="margin-bottom:0">Pilihan Kamar</h2>
+${hasRooms?`<div class="view-switch-dd" id="rooms-view-switch">
+  <button class="vs-dd-btn" onclick="toggleViewDropdown('rooms')" title="Tampilan"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button>
+  <div class="vs-dd-menu" id="rooms-view-menu">
+    <button class="vs-dd-item" data-mode="besar" onclick="setRoomsView('besar')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>Besar</button>
+    <button class="vs-dd-item" data-mode="baris3" onclick="setRoomsView('baris3')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="9.5" y="4" width="5" height="16" rx="1"/><rect x="16" y="4" width="5" height="16" rx="1"/></svg>3 Kolom</button>
+    <button class="vs-dd-item" data-mode="detail" onclick="setRoomsView('detail')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Detail</button>
+    <button class="vs-dd-item" data-mode="galeri" onclick="setRoomsView('galeri')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Galeri</button>
+  </div>
 </div>`:''}
+</div>
 <div id="rooms-container" class="rooms"></div></div>
 <div class="footer">Hubungi kami: <a href="${wa}">${escHtml(p.telp||'')}</a> &nbsp;|&nbsp; ${escHtml(p.alamat||'')}</div>
 
@@ -2081,8 +2383,28 @@ ${hasRooms?`<div class="view-switch" id="rooms-view-switch">
   <div class="fs-counter" id="fs-counter"></div>
 </div>
 
+<div id="fas-lb-overlay" class="fas-lb-overlay" onclick="closeFasLightbox(event)">
+  <div class="fas-lb-box">
+    <button class="fas-lb-close" onclick="closeFasLightbox(event)">✕</button>
+    <div class="fas-lb-img-wrap">
+      <img id="fas-lb-img" style="display:none">
+      <div id="fas-lb-noimg" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:44px">🛋️</div>
+      <div class="fas-lb-nav" id="fas-lb-nav">
+        <button onclick="event.stopPropagation();fasLbPrev(event)">‹</button>
+        <span id="fas-lb-counter"></span>
+        <button onclick="event.stopPropagation();fasLbNext(event)">›</button>
+      </div>
+    </div>
+    <div class="fas-lb-body">
+      <h3 id="fas-lb-title"></h3>
+      <p id="fas-lb-sub"></p>
+    </div>
+  </div>
+</div>
+
 <script>
 const ROOMS_DATA = ${roomsDataJson};
+const FAS_UMUM_FOTO = ${fasUmumFotoJson};
 const KOS_NAME = ${JSON.stringify(namaKos)};
 let _rmPhotos = [], _rmIdx = 0, _rmCurrentRoom = -1;
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
@@ -2149,9 +2471,19 @@ function renderRoomsView(mode){
     c.innerHTML=ROOMS_DATA.map((k,i)=>roomCardBesar(k,i)).join('');
   }
 }
+function toggleViewDropdown(key){
+  const menu=document.getElementById(key+'-view-menu');if(!menu)return;
+  const isOpen=menu.classList.contains('open');
+  document.querySelectorAll('.vs-dd-menu').forEach(m=>m.classList.remove('open'));
+  if(!isOpen)menu.classList.add('open');
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.view-switch-dd')) document.querySelectorAll('.vs-dd-menu').forEach(m=>m.classList.remove('open'));
+});
 function setRoomsView(mode){
   try{localStorage.setItem('dkos_rooms_view',mode);}catch(e){}
-  document.querySelectorAll('#rooms-view-switch .vs-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
+  document.querySelectorAll('#rooms-view-menu .vs-dd-item').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
+  document.querySelectorAll('.vs-dd-menu').forEach(m=>m.classList.remove('open'));
   renderRoomsView(mode);
 }
 function openRoomModal(i){
@@ -2168,7 +2500,7 @@ function openRoomModal(i){
   document.getElementById('rm-meteran').innerHTML = r.meteran ? ('⚡ ID Meteran Listrik: <b>' + r.meteran + '</b>') : '';
   document.getElementById('rm-desc').textContent = r.deskripsi || '';
   const fasList = (r.fasilitas||'').split(',').map(s=>s.trim()).filter(Boolean);
-  document.getElementById('rm-fasilitas').innerHTML = fasList.length ? fasList.map(f=>'<span class="pill">'+f+'</span>').join('') : '<span style="color:#9ca3af;font-size:12px">Belum ada data fasilitas kamar ini</span>';
+  document.getElementById('rm-fasilitas').innerHTML = fasList.length ? fasList.map(f=>'<span class="pill'+((r.fasFoto&&r.fasFoto[f.toLowerCase()])?' has-foto':'')+'" onclick="openFasLightbox(\\'kamar\\','+i+','+JSON.stringify(f).replace(/"/g,'&quot;')+')">'+esc(f)+((r.fasFoto&&r.fasFoto[f.toLowerCase()])?' 📷':'')+'</span>').join('') : '<span style="color:#9ca3af;font-size:12px">Belum ada data fasilitas kamar ini</span>';
   _rmPhotos = (r.foto && r.foto.length) ? r.foto : [];
   _rmIdx = 0;
   renderRoomGallery();
@@ -2202,6 +2534,32 @@ function openFullscreen(){
   document.getElementById('fs-viewer').classList.add('open');
 }
 function closeFullscreen(){ document.getElementById('fs-viewer').classList.remove('open'); }
+// ── Lightbox foto fasilitas ──
+let _fasLbPhotos = [], _fasLbIdx = 0;
+function openFasLightbox(scope,roomIdx,namaFasilitas){
+  const key=namaFasilitas.toLowerCase();
+  let photos=[];
+  if(scope==='umum'){ photos = FAS_UMUM_FOTO[key] || []; }
+  else { const r=ROOMS_DATA[roomIdx]; photos = (r && r.fasFoto && r.fasFoto[key]) || []; }
+  _fasLbPhotos = photos; _fasLbIdx = 0;
+  document.getElementById('fas-lb-title').textContent = namaFasilitas;
+  document.getElementById('fas-lb-sub').textContent = photos.length ? 'Foto asli fasilitas ini' : 'Belum ada foto untuk fasilitas ini';
+  renderFasLbImage();
+  document.getElementById('fas-lb-overlay').classList.add('open');
+}
+function renderFasLbImage(){
+  const img=document.getElementById('fas-lb-img'), noimg=document.getElementById('fas-lb-noimg'), nav=document.getElementById('fas-lb-nav');
+  if(_fasLbPhotos.length){ img.src=_fasLbPhotos[_fasLbIdx]; img.style.display='block'; noimg.style.display='none'; }
+  else { img.style.display='none'; noimg.style.display='flex'; }
+  nav.classList.toggle('show', _fasLbPhotos.length>1);
+  document.getElementById('fas-lb-counter').textContent = _fasLbPhotos.length ? (_fasLbIdx+1)+' / '+_fasLbPhotos.length : '';
+}
+function fasLbPrev(e){ if(e)e.stopPropagation(); if(!_fasLbPhotos.length)return; _fasLbIdx=(_fasLbIdx-1+_fasLbPhotos.length)%_fasLbPhotos.length; renderFasLbImage(); }
+function fasLbNext(e){ if(e)e.stopPropagation(); if(!_fasLbPhotos.length)return; _fasLbIdx=(_fasLbIdx+1)%_fasLbPhotos.length; renderFasLbImage(); }
+function closeFasLightbox(e){
+  if(e && e.target && e.target.id!=='fas-lb-overlay' && !e.target.closest('.fas-lb-close')) return;
+  document.getElementById('fas-lb-overlay').classList.remove('open');
+}
 function fsPrev(e){ e.stopPropagation(); _rmIdx=(_rmIdx-1+_rmPhotos.length)%_rmPhotos.length; document.getElementById('fs-img').src=_rmPhotos[_rmIdx]; document.getElementById('fs-counter').textContent=(_rmIdx+1)+' / '+_rmPhotos.length; renderRoomGallery(); }
 function fsNext(e){ e.stopPropagation(); _rmIdx=(_rmIdx+1)%_rmPhotos.length; document.getElementById('fs-img').src=_rmPhotos[_rmIdx]; document.getElementById('fs-counter').textContent=(_rmIdx+1)+' / '+_rmPhotos.length; renderRoomGallery(); }
 document.getElementById('fs-viewer').addEventListener('touchstart',function(e){ _fsStartX=e.touches[0].clientX; });
@@ -2226,6 +2584,12 @@ function shareRoom(){
   else { window.open('https://wa.me/?text='+encodeURIComponent(text+' '+url),'_blank'); }
 }
 document.addEventListener('keydown',function(e){
+  if(document.getElementById('fas-lb-overlay').classList.contains('open')){
+    if(e.key==='Escape')closeFasLightbox();
+    if(e.key==='ArrowLeft')fasLbPrev(e);
+    if(e.key==='ArrowRight')fasLbNext(e);
+    return;
+  }
   if(document.getElementById('fs-viewer').classList.contains('open')){
     if(e.key==='Escape')closeFullscreen();
     if(e.key==='ArrowLeft')fsPrev(e);
@@ -2241,7 +2605,7 @@ document.addEventListener('keydown',function(e){
 (function(){
   let savedMode='besar';
   try{savedMode=localStorage.getItem('dkos_rooms_view')||'besar';}catch(e){}
-  document.querySelectorAll('#rooms-view-switch .vs-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===savedMode));
+  document.querySelectorAll('#rooms-view-menu .vs-dd-item').forEach(b=>b.classList.toggle('active',b.dataset.mode===savedMode));
   renderRoomsView(savedMode);
   const m=location.hash.match(/#kamar-(\\d+)/);
   if(m){ const idx=parseInt(m[1],10); if(ROOMS_DATA[idx])setTimeout(()=>openRoomModal(idx),150); }
@@ -2251,7 +2615,12 @@ document.addEventListener('keydown',function(e){
 }
 function renderLandingPreview(){
   const h=window.innerWidth<=600?580:800;
-  document.getElementById('landing-preview-content').innerHTML=`<iframe style="width:100%;height:${h}px;border:none;display:block" srcdoc="${escHtml(buildLandingHtml())}"></iframe>`;
+  const container=document.getElementById('landing-preview-content');
+  container.innerHTML='';
+  const iframe=document.createElement('iframe');
+  iframe.style.cssText=`width:100%;height:${h}px;border:none;display:block`;
+  container.appendChild(iframe);
+  iframe.srcdoc=buildLandingHtml();
 }
 function downloadLandingPage(){
   const p=loadObj(KEYS.profil,{});
@@ -4166,9 +4535,11 @@ document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='z'&&
 document.addEventListener('DOMContentLoaded',async ()=>{
   applyTheme(localStorage.getItem('sikos_theme')||'dkos');
   applyLayoutMode(localStorage.getItem('sikos_layout')||'sidebar');
+  applyGlassMode(localStorage.getItem('sikos_glass_mode')==='1');
   applyOrientationMode(localStorage.getItem('sikos_orientation')||'any',true);
   seedData();
   await preloadKamarPhotos();
+  await preloadFasilitasFoto();
   updateSidebarBrand();
   document.getElementById('topbar-date').textContent=new Date().toLocaleDateString('id-ID',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
   // Buka halaman terakhir yang dibuka, bukan selalu dashboard
