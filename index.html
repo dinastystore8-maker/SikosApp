@@ -95,6 +95,9 @@ body.glass-mode .undo-bar{
   color:#f1f2f6;
 }
 body.glass-mode .undo-bar span,body.glass-mode .undo-bar b{color:#f1f2f6!important}
+body.glass-mode .undo-bar button:disabled{opacity:.65!important}
+body.glass-mode .topbar-title svg,body.glass-mode .ic-head svg,body.glass-mode .ic-head{color:var(--gold)!important}
+body.glass-mode .nav-item.active svg{color:#1a1424!important}
 body.glass-mode .landing-preview-frame{
   border:1px solid rgba(255,255,255,.16)!important;
   box-shadow:0 12px 40px rgba(0,0,0,.45)!important;
@@ -634,6 +637,13 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
     <div id="page-kamar" class="page">
       <div class="stats-grid" id="kamar-stats"></div>
       <div class="card"><div class="card-head"><span class="ic-head"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="M2 9v9"/><path d="M2 13h20"/><path d="M22 9v9"/><path d="M4 13V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1"/><path d="M12 8h4a2 2 0 0 1 2 2v3"/></svg></span><span class="card-title">Tipe & Daftar Kamar</span>
+        <div class="view-switch-dd" id="kamar-sort-switch">
+          <button class="vs-dd-btn" onclick="toggleViewDropdown('kamar-sort')" title="Urutkan"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4-4 4 4"/><path d="M7 4v16"/><path d="M21 16l-4 4-4-4"/><path d="M17 20V4"/></svg></button>
+          <div class="vs-dd-menu" id="kamar-sort-view-menu">
+            <button class="vs-dd-item active" data-sort="az" onclick="setKamarSort('az')">Nama A → Z</button>
+            <button class="vs-dd-item" data-sort="za" onclick="setKamarSort('za')">Nama Z → A</button>
+          </div>
+        </div>
         <div class="view-switch-dd" id="kamar-view-switch">
           <button class="vs-dd-btn" onclick="toggleViewDropdown('kamar')" title="Tampilan"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button>
           <div class="vs-dd-menu" id="kamar-view-menu">
@@ -660,10 +670,19 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
       <div id="penyewa-notif-area"></div>
       <div class="stats-grid" id="penyewa-stats"></div>
       <!-- Tab: Board / Tabel / Riwayat -->
-      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center">
         <button class="btn btn-primary btn-sm" id="tab-board" onclick="setPenyewaTab('board')">🃏 Board Aktif</button>
         <button class="btn btn-ghost btn-sm" id="tab-tabel" onclick="setPenyewaTab('tabel')">📋 Tabel Lengkap</button>
         <button class="btn btn-ghost btn-sm" id="tab-riwayat" onclick="setPenyewaTab('riwayat')">📜 Riwayat Periode</button>
+        <div class="view-switch-dd" id="penyewa-sort-switch" style="margin-left:auto">
+          <button class="vs-dd-btn" onclick="toggleViewDropdown('penyewa-sort')" title="Urutkan"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4-4 4 4"/><path d="M7 4v16"/><path d="M21 16l-4 4-4-4"/><path d="M17 20V4"/></svg></button>
+          <div class="vs-dd-menu" id="penyewa-sort-view-menu">
+            <button class="vs-dd-item active" data-sort="az" onclick="setPenyewaSort('az')">Nama A → Z</button>
+            <button class="vs-dd-item" data-sort="za" onclick="setPenyewaSort('za')">Nama Z → A</button>
+            <button class="vs-dd-item" data-sort="kamar-az" onclick="setPenyewaSort('kamar-az')">Kamar A → Z</button>
+            <button class="vs-dd-item" data-sort="kamar-za" onclick="setPenyewaSort('kamar-za')">Kamar Z → A</button>
+          </div>
+        </div>
       </div>
       <!-- Board View -->
       <div id="penyewa-board-view">
@@ -711,6 +730,13 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
       <div class="card-body"><div class="filters">
         <input type="text" id="kasumum-search" placeholder="🔍 Cari..." oninput="renderKasUmum()" style="width:200px">
         <select id="kasumum-filter" onchange="renderKasUmum()"><option value="">Semua</option><option value="masuk">Masuk</option><option value="keluar">Keluar</option></select>
+        <div class="view-switch-dd" id="kasumum-sort-switch">
+          <button class="vs-dd-btn" onclick="toggleViewDropdown('kasumum-sort')" title="Urutkan"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4-4 4 4"/><path d="M7 4v16"/><path d="M21 16l-4 4-4-4"/><path d="M17 20V4"/></svg></button>
+          <div class="vs-dd-menu" id="kasumum-sort-view-menu">
+            <button class="vs-dd-item active" data-sort="baru" onclick="setSortAndRender('kasumum','baru','renderKasUmum')">Terbaru → Terlama</button>
+            <button class="vs-dd-item" data-sort="lama" onclick="setSortAndRender('kasumum','lama','renderKasUmum')">Terlama → Terbaru</button>
+          </div>
+        </div>
         <div class="spacer"></div>
       </div><div class="table-wrap"><table id="kasumum-table"></table></div></div></div>
     </div>
@@ -722,6 +748,13 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
       <div class="card-body"><div class="filters">
         <input type="text" id="listrik-search" placeholder="🔍 Cari..." oninput="renderListrik()" style="width:200px">
         <select id="listrik-filter" onchange="renderListrik()"><option value="">Semua</option><option value="masuk">Masuk</option><option value="keluar">Keluar</option></select>
+        <div class="view-switch-dd" id="listrik-sort-switch">
+          <button class="vs-dd-btn" onclick="toggleViewDropdown('listrik-sort')" title="Urutkan"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4-4 4 4"/><path d="M7 4v16"/><path d="M21 16l-4 4-4-4"/><path d="M17 20V4"/></svg></button>
+          <div class="vs-dd-menu" id="listrik-sort-view-menu">
+            <button class="vs-dd-item active" data-sort="baru" onclick="setSortAndRender('listrik','baru','renderListrik')">Terbaru → Terlama</button>
+            <button class="vs-dd-item" data-sort="lama" onclick="setSortAndRender('listrik','lama','renderListrik')">Terlama → Terbaru</button>
+          </div>
+        </div>
         <div class="spacer"></div>
       </div><div class="table-wrap"><table id="listrik-table"></table></div></div></div>
     </div>
@@ -733,6 +766,13 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
       <div class="card-body"><div class="filters">
         <input type="text" id="sampah-search" placeholder="🔍 Cari..." oninput="renderSampah()" style="width:200px">
         <select id="sampah-filter" onchange="renderSampah()"><option value="">Semua</option><option value="masuk">Masuk</option><option value="keluar">Keluar</option></select>
+        <div class="view-switch-dd" id="sampah-sort-switch">
+          <button class="vs-dd-btn" onclick="toggleViewDropdown('sampah-sort')" title="Urutkan"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4-4 4 4"/><path d="M7 4v16"/><path d="M21 16l-4 4-4-4"/><path d="M17 20V4"/></svg></button>
+          <div class="vs-dd-menu" id="sampah-sort-view-menu">
+            <button class="vs-dd-item active" data-sort="baru" onclick="setSortAndRender('sampah','baru','renderSampah')">Terbaru → Terlama</button>
+            <button class="vs-dd-item" data-sort="lama" onclick="setSortAndRender('sampah','lama','renderSampah')">Terlama → Terbaru</button>
+          </div>
+        </div>
         <div class="spacer"></div>
       </div><div class="table-wrap"><table id="sampah-table"></table></div></div></div>
     </div>
@@ -744,6 +784,13 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
       <div class="card-body"><div class="filters">
         <input type="text" id="sewa-search" placeholder="🔍 Cari penyewa..." oninput="renderKasSewa()" style="width:200px">
         <select id="sewa-filter" onchange="renderKasSewa()"><option value="">Semua</option><option value="cash">Cash</option><option value="transfer">Transfer</option></select>
+        <div class="view-switch-dd" id="sewa-sort-switch">
+          <button class="vs-dd-btn" onclick="toggleViewDropdown('sewa-sort')" title="Urutkan"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4-4 4 4"/><path d="M7 4v16"/><path d="M21 16l-4 4-4-4"/><path d="M17 20V4"/></svg></button>
+          <div class="vs-dd-menu" id="sewa-sort-view-menu">
+            <button class="vs-dd-item active" data-sort="baru" onclick="setSortAndRender('sewa','baru','renderKasSewa')">Terbaru → Terlama</button>
+            <button class="vs-dd-item" data-sort="lama" onclick="setSortAndRender('sewa','lama','renderKasSewa')">Terlama → Terbaru</button>
+          </div>
+        </div>
         <div class="spacer"></div>
       </div><div class="table-wrap"><table id="sewa-table"></table></div></div></div>
     </div>
@@ -755,6 +802,13 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
       <div class="card-body"><div class="filters">
         <input type="text" id="perbaikan-search" placeholder="🔍 Cari..." oninput="renderKasPerbaikan()" style="width:200px">
         <select id="perbaikan-filter" onchange="renderKasPerbaikan()"><option value="">Semua</option><option value="masuk">Pemasukan Dana</option><option value="keluar">Pengeluaran Perbaikan</option></select>
+        <div class="view-switch-dd" id="perbaikan-sort-switch">
+          <button class="vs-dd-btn" onclick="toggleViewDropdown('perbaikan-sort')" title="Urutkan"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4-4 4 4"/><path d="M7 4v16"/><path d="M21 16l-4 4-4-4"/><path d="M17 20V4"/></svg></button>
+          <div class="vs-dd-menu" id="perbaikan-sort-view-menu">
+            <button class="vs-dd-item active" data-sort="baru" onclick="setSortAndRender('perbaikan','baru','renderKasPerbaikan')">Terbaru → Terlama</button>
+            <button class="vs-dd-item" data-sort="lama" onclick="setSortAndRender('perbaikan','lama','renderKasPerbaikan')">Terlama → Terbaru</button>
+          </div>
+        </div>
         <div class="spacer"></div>
       </div><div class="table-wrap"><table id="perbaikan-table"></table></div></div></div>
     </div>
@@ -766,6 +820,13 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
       <div class="card-body"><div class="filters">
         <input type="text" id="inv-search" placeholder="🔍 Cari barang..." oninput="renderInventaris()" style="width:200px">
         <select id="inv-filter" onchange="renderInventaris()"><option value="">Semua Status</option><option value="baik">Baik</option><option value="rusak ringan">Rusak Ringan</option><option value="rusak berat">Rusak Berat</option><option value="hilang">Hilang</option></select>
+        <div class="view-switch-dd" id="inv-sort-switch">
+          <button class="vs-dd-btn" onclick="toggleViewDropdown('inv-sort')" title="Urutkan"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4-4 4 4"/><path d="M7 4v16"/><path d="M21 16l-4 4-4-4"/><path d="M17 20V4"/></svg></button>
+          <div class="vs-dd-menu" id="inv-sort-view-menu">
+            <button class="vs-dd-item active" data-sort="baru" onclick="setSortAndRender('inv','baru','renderInventaris')">Terbaru → Terlama</button>
+            <button class="vs-dd-item" data-sort="lama" onclick="setSortAndRender('inv','lama','renderInventaris')">Terlama → Terbaru</button>
+          </div>
+        </div>
         <div class="spacer"></div>
       </div><div class="table-wrap"><table id="inv-table"></table></div></div></div>
     </div>
@@ -777,6 +838,13 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
       <div class="card-body"><div class="filters">
         <input type="text" id="sarpras-search" placeholder="🔍 Cari item..." oninput="renderSarpras()" style="width:200px">
         <select id="sarpras-filter" onchange="renderSarpras()"><option value="">Semua</option><option value="gedung">Gedung</option><option value="utilitas">Utilitas</option><option value="elektronik">Elektronik</option><option value="furnitur">Furnitur</option><option value="keamanan">Keamanan</option></select>
+        <div class="view-switch-dd" id="sarpras-sort-switch">
+          <button class="vs-dd-btn" onclick="toggleViewDropdown('sarpras-sort')" title="Urutkan"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4-4 4 4"/><path d="M7 4v16"/><path d="M21 16l-4 4-4-4"/><path d="M17 20V4"/></svg></button>
+          <div class="vs-dd-menu" id="sarpras-sort-view-menu">
+            <button class="vs-dd-item active" data-sort="baru" onclick="setSortAndRender('sarpras','baru','renderSarpras')">Terbaru → Terlama</button>
+            <button class="vs-dd-item" data-sort="lama" onclick="setSortAndRender('sarpras','lama','renderSarpras')">Terlama → Terbaru</button>
+          </div>
+        </div>
         <div class="spacer"></div>
       </div><div class="table-wrap"><table id="sarpras-table"></table></div></div></div>
     </div>
@@ -791,21 +859,24 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
         </div>
         <div id="bersih-item-list"></div>
       </div></div>
-      <div class="card"><div class="card-head"><span class="ic-head"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span><span class="card-title">Alarm Jadwal Bersih-bersih</span></div>
-        <div class="card-body">
-          <p style="font-size:11.5px;color:var(--gray1);margin-bottom:12px;line-height:1.6">Atur pengingat harian. Selama aplikasi ini terbuka di HP, notifikasi akan muncul dengan <strong>nada dering notifikasi bawaan HP kamu</strong> (browser tidak diizinkan mengakses daftar nada dering HP untuk dipilih manual — ini batasan keamanan dari sistem operasi, bukan dari aplikasi ini).</p>
-          <div class="filters">
-            <input type="time" id="alarm-bersih-jam" style="width:120px">
-            <input type="text" id="alarm-bersih-label" placeholder="Label (mis: Bersih kamar kosong)" style="flex:1;min-width:150px">
-            <button class="btn btn-primary btn-sm" onclick="addAlarmBersih()">＋ Tambah Alarm</button>
-          </div>
-          <div id="alarm-bersih-list" style="margin-top:12px"></div>
-        </div>
-      </div>
       <div class="card"><div class="card-head"><span class="ic-head"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="M9.59 4.59A2 2 0 1 1 11 8H2"/><path d="M12.59 19.41A2 2 0 1 0 14 16H2"/><path d="M17.73 7.73A2.5 2.5 0 1 1 19.5 12H2"/></svg></span><span class="card-title">Pilih Kamar untuk Bersih-bersih</span>
-        <div style="display:flex;align-items:center;gap:8px">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
           <label style="font-size:12px;font-weight:600;color:var(--gray1)">Tanggal:</label>
           <input type="date" id="bersih-tgl-aktif" style="padding:5px 9px;border:1.5px solid var(--gray2);border-radius:7px;font-size:12px;font-family:var(--font);outline:none" onchange="renderBersihKamarGrid()">
+          <div class="view-switch-dd" id="bersih-sort-switch">
+            <button class="vs-dd-btn" onclick="toggleViewDropdown('bersih-sort')" title="Urutkan"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4-4 4 4"/><path d="M7 4v16"/><path d="M21 16l-4 4-4-4"/><path d="M17 20V4"/></svg></button>
+            <div class="vs-dd-menu" id="bersih-sort-view-menu">
+              <button class="vs-dd-item active" data-sort="az" onclick="setSortAndRender('bersih','az','renderBersihKamarGrid')">Nama A → Z</button>
+              <button class="vs-dd-item" data-sort="za" onclick="setSortAndRender('bersih','za','renderBersihKamarGrid')">Nama Z → A</button>
+            </div>
+          </div>
+          <div class="view-switch-dd" id="bersih-viewmode-switch">
+            <button class="vs-dd-btn" onclick="toggleViewDropdown('bersih-viewmode')" title="Tampilan"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button>
+            <div class="vs-dd-menu" id="bersih-viewmode-view-menu">
+              <button class="vs-dd-item active" data-mode="grid" onclick="setBersihViewMode('grid')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>Kotak</button>
+              <button class="vs-dd-item" data-mode="detail" onclick="setBersihViewMode('detail')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Detail</button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="card-body">
@@ -862,25 +933,6 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
           </div>
         </div>
       </div>
-      <div class="card"><div class="card-head"><span class="ic-head"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span><span class="card-title">Orientasi Layar</span></div>
-        <div class="card-body">
-          <div class="layout-grid" style="grid-template-columns:repeat(3,1fr)">
-            <div class="layout-option" id="orient-opt-any" onclick="setOrientationMode('any')">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/><polyline points="21 3 21 9 15 9"/></svg>
-              <div class="lo-name">Otomatis</div>
-            </div>
-            <div class="layout-option" id="orient-opt-portrait" onclick="setOrientationMode('portrait')">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2" ry="2"/></svg>
-              <div class="lo-name">Potret</div>
-            </div>
-            <div class="layout-option" id="orient-opt-landscape" onclick="setOrientationMode('landscape')">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2" ry="2"/></svg>
-              <div class="lo-name">Lanskap</div>
-            </div>
-          </div>
-          <p style="font-size:11.5px;color:var(--gray1);margin-top:12px;line-height:1.6">Memilih Potret/Lanskap akan otomatis membuka layar penuh (fullscreen) lalu mengunci orientasi — ini caranya browser HP mengizinkan penguncian di luar app yang di-install. Kalau tombol tidak bergerak, coba matikan dulu rotasi otomatis bawaan HP dari menu Pengaturan Cepat, lalu pilih lagi di sini. Sebagian browser (misalnya Safari iPhone) memang belum mendukung fitur ini sama sekali.</p>
-        </div>
-      </div>
       <div class="card"><div class="card-head"><span class="ic-head"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h16v20l-3-2-3 2-3-2-3 2-3-2-1 2z"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="13" y2="15"/></svg></span><span class="card-title">Template Kwitansi</span></div>
         <div class="card-body">
           <p style="font-size:12px;color:var(--gray1);margin-bottom:10px;line-height:1.6">Tulis format kwitansi sesuai kebutuhan. Gunakan kode di bawah ini, akan otomatis terisi datanya saat kwitansi dicetak dari transaksi Kas Sewa (cash):</p>
@@ -892,15 +944,46 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
           </div>
         </div>
       </div>
-      <div class="card"><div class="card-head"><span class="ic-head"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></span><span class="card-title">Sinkronisasi Cloud</span></div>
+      <div class="card"><div class="card-head"><span class="ic-head"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></span><span class="card-title">Sinkronisasi Cloud (Firebase + Google)</span></div>
         <div class="card-body">
-          <p style="font-size:12.5px;color:var(--gray1);line-height:1.7">Aplikasi ini berjalan 100% di HP/browser kamu (tanpa server), jadi belum ada sinkronisasi otomatis antar perangkat. Cara paling praktis sekarang:</p>
-          <ol style="font-size:12.5px;color:var(--navy);line-height:2;margin:10px 0 0 18px">
-            <li>Buka <strong>Database / Backup</strong> → <strong>Export Backup</strong> secara rutin (mingguan/bulanan).</li>
-            <li>Simpan file backup itu ke Google Drive / cloud storage pilihanmu.</li>
-            <li>Di HP/perangkat lain, buka app ini → <strong>Import Backup</strong> → pilih file tadi.</li>
-          </ol>
-          <p style="font-size:11.5px;color:var(--gray1);margin-top:10px;line-height:1.6">Sinkronisasi real-time otomatis antar banyak perangkat butuh server/database online (misalnya Firebase atau Supabase) — ini pengembangan besar di luar app 1-file ini. Kalau kamu mau, ini bisa jadi proyek lanjutan terpisah.</p>
+          <p style="font-size:12.5px;color:var(--gray1);line-height:1.7;margin-bottom:12px">Ya, bisa! Aplikasi ini bisa disambungkan ke <strong>Firebase</strong> (gratis) milikmu sendiri, lalu masuk pakai akun Google untuk sinkron data antar HP/perangkat secara real-time. Karena app ini 1-file tanpa server sendiri, kamu perlu buat proyek Firebase gratis dulu (5 menit) dan tempel konfigurasinya di sini — datamu tetap privat, hanya kamu yang punya akses lewat akun Google-mu.</p>
+          <details style="margin-bottom:12px">
+            <summary style="cursor:pointer;font-size:12.5px;font-weight:700;color:var(--gold)">📖 Cara buat Firebase (langkah demi langkah)</summary>
+            <ol style="font-size:12px;color:var(--navy);line-height:1.9;margin:10px 0 0 18px">
+              <li>Buka <a href="https://console.firebase.google.com" target="_blank" style="color:var(--gold)">console.firebase.google.com</a> → <strong>Add project</strong> → beri nama bebas → lanjut sampai selesai.</li>
+              <li>Di menu kiri, buka <strong>Build → Authentication</strong> → tab <strong>Sign-in method</strong> → aktifkan <strong>Google</strong>.</li>
+              <li>Di menu kiri, buka <strong>Build → Firestore Database</strong> → <strong>Create database</strong> → pilih mode <strong>Production</strong>.</li>
+              <li>Buka tab <strong>Rules</strong> di Firestore, ganti isinya dengan aturan di bawah ini agar hanya kamu yang bisa akses datamu sendiri, lalu klik <strong>Publish</strong>:
+                <pre style="background:var(--navy);color:#e5e7eb;padding:10px;border-radius:8px;font-size:10.5px;overflow-x:auto;margin-top:6px">rules_version='2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    match /dkos_users/{uid} {
+      allow read, write: if request.auth!=null && request.auth.uid==uid;
+    }
+  }
+}</pre>
+              </li>
+              <li>Klik ⚙️ <strong>Project settings</strong> (dekat "Project Overview") → scroll ke <strong>Your apps</strong> → klik ikon <strong>&lt;/&gt; Web</strong> → beri nama → <strong>Register app</strong>.</li>
+              <li>Salin blok <code>firebaseConfig = {"{"}...{"}"}</code> yang muncul, tempel utuh ke kotak di bawah ini.</li>
+            </ol>
+          </details>
+          <textarea id="firebase-config-input" rows="6" placeholder='Tempel firebaseConfig di sini, contoh:&#10;{&#10;  "apiKey": "...",&#10;  "authDomain": "...",&#10;  "projectId": "...",&#10;  "storageBucket": "...",&#10;  "messagingSenderId": "...",&#10;  "appId": "..."&#10;}' style="width:100%;font-family:var(--mono);font-size:11px;padding:10px;border:1px solid var(--gray2);border-radius:8px;resize:vertical"></textarea>
+          <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+            <button class="btn btn-primary btn-sm" onclick="saveFirebaseConfig()">💾 Simpan Konfigurasi</button>
+            <button class="btn btn-ghost btn-sm" onclick="clearFirebaseConfig()">Hapus Konfigurasi</button>
+          </div>
+          <div id="firebase-status-box" style="margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--gray3);font-size:12px"></div>
+          <div id="firebase-actions-box" style="margin-top:10px;display:none">
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn btn-primary btn-sm" id="btn-google-signin" onclick="signInWithGoogleCloud()">🔵 Masuk dengan Google</button>
+              <button class="btn btn-ghost btn-sm" id="btn-google-signout" onclick="signOutCloud()" style="display:none">Keluar Akun</button>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px" id="firebase-sync-buttons" style="display:none">
+              <button class="btn btn-orange btn-sm" onclick="pushDataToCloud()">☁️⬆️ Unggah Data ke Cloud</button>
+              <button class="btn btn-blue btn-sm" onclick="pullDataFromCloud()">☁️⬇️ Ambil Data dari Cloud</button>
+            </div>
+          </div>
+          <p style="font-size:10.5px;color:var(--gray1);margin-top:10px;line-height:1.6">Catatan jujur: fitur ini menggunakan proyek Firebase milikmu sendiri (gratis untuk pemakaian skala kos-kosan), bukan server dari Anthropic/Claude. Sinkronnya masih manual (tombol Unggah/Ambil), bukan otomatis real-time — supaya kamu tetap kontrol penuh kapan data ditimpa. <strong>Foto kamar &amp; foto fasilitas belum ikut disinkron</strong> (ukurannya kebesaran untuk Firestore) — untuk foto, tetap pakai Export/Import Backup JSON di kartu Database di bawah.</p>
         </div>
       </div>
       <div class="card"><div class="card-head"><span class="ic-head"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span><span class="card-title">Penyimpanan Foto Kamar</span></div>
@@ -1002,6 +1085,27 @@ tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf9}
           </select>
         </div>
         <div class="form-row"><label>Catatan</label><input type="text" id="penyewa-catatan" placeholder="KTP, kontak darurat, dll"></div>
+      </div>
+      <div id="penyewa-catat-kas-row" style="background:var(--gray3);border-radius:10px;padding:12px 14px;margin-top:4px">
+        <label style="display:flex;align-items:center;gap:9px;cursor:pointer;font-size:12.5px;font-weight:600;color:var(--navy)">
+          <input type="checkbox" id="penyewa-catat-kas" checked style="width:16px;height:16px;flex-shrink:0">
+          Sekaligus catat sebagai pembayaran di Kas Sewa (untuk riwayat/laporan)
+        </label>
+        <div id="penyewa-catat-kas-detail" style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+          <select id="penyewa-catat-kas-tipe" style="flex:1;min-width:120px">
+            <option value="bulanan">Bulanan</option>
+            <option value="harian">Harian</option>
+            <option value="mingguan">Mingguan</option>
+            <option value="3bulan">3 Bulanan</option>
+            <option value="6bulan">6 Bulanan</option>
+            <option value="tahunan">Tahunan</option>
+          </select>
+          <select id="penyewa-catat-kas-metode" style="flex:1;min-width:120px">
+            <option value="cash">Cash</option>
+            <option value="transfer">Transfer</option>
+          </select>
+        </div>
+        <p style="font-size:10.5px;color:var(--gray1);margin-top:6px;line-height:1.5">Berguna untuk memasukkan data penyewa lama supaya riwayat sewanya ikut muncul di Laporan Rekap bulan yang sesuai.</p>
       </div>
     </div>
     <div class="modal-foot">
@@ -1665,36 +1769,6 @@ function applyLayoutMode(mode){
   document.body.classList.toggle('layout-bottom',mode==='bottom');
   localStorage.setItem('sikos_layout',mode);
 }
-async function applyOrientationMode(mode,silent){
-  localStorage.setItem('sikos_orientation',mode);
-  if(mode==='any'){
-    try{ if(screen.orientation && screen.orientation.unlock) screen.orientation.unlock(); }catch(e){}
-    try{ if(document.fullscreenElement) await document.exitFullscreen(); }catch(e){}
-    return true;
-  }
-  if(!screen.orientation||!screen.orientation.lock){
-    if(!silent)showToast('HP/browser ini tidak mendukung kunci orientasi','error');
-    return false;
-  }
-  try{
-    // Kunci orientasi butuh mode fullscreen di kebanyakan browser HP (di luar app yang di-install)
-    if(!document.fullscreenElement && document.documentElement.requestFullscreen){
-      await document.documentElement.requestFullscreen().catch(()=>{});
-    }
-    await screen.orientation.lock(mode==='portrait'?'portrait':'landscape');
-    return true;
-  }catch(e){
-    if(!silent)showToast('Gagal mengunci orientasi: '+(e.message||'tidak didukung browser ini'),'error');
-    return false;
-  }
-}
-function setOrientationMode(mode){
-  applyOrientationMode(mode).then(ok=>{
-    ['any','portrait','landscape'].forEach(m=>document.getElementById('orient-opt-'+m)?.classList.toggle('active',m===mode));
-    if(mode==='any'){showToast('Orientasi kembali otomatis');return;}
-    if(ok)showToast('Orientasi terkunci: '+(mode==='portrait'?'Potret':'Lanskap')+' (layar penuh)');
-  });
-}
 function saveKwitansiTemplate(){
   localStorage.setItem('sikos_kwitansi_template',document.getElementById('kwitansi-template').value);
   showToast('Template kwitansi disimpan');
@@ -1717,10 +1791,9 @@ async function renderPengaturan(){
   const mode=localStorage.getItem('sikos_layout')||'sidebar';
   document.getElementById('layout-opt-sidebar')?.classList.toggle('active',mode==='sidebar');
   document.getElementById('layout-opt-bottom')?.classList.toggle('active',mode==='bottom');
-  const om=localStorage.getItem('sikos_orientation')||'any';
-  ['any','portrait','landscape'].forEach(m=>document.getElementById('orient-opt-'+m)?.classList.toggle('active',m===om));
   const kt=document.getElementById('kwitansi-template');
   if(kt)kt.value=getKwitansiTemplate();
+  renderFirebaseStatus();
   const infoEl=document.getElementById('storage-usage-info');
   if(infoEl){
     try{
@@ -1741,7 +1814,10 @@ function addMonths(dateStr,months){const d=new Date(dateStr+'T00:00:00');d.setMo
 function fileToB64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file);});}
 function showToast(msg,type='success'){const t=document.getElementById('toast');t.textContent=(type==='success'?'✅ ':type==='error'?'❌ ':type==='info'?'ℹ️ ':'⚠️ ')+msg;t.className='show '+type;setTimeout(()=>t.className='',2800);}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
-function openModal(id){document.getElementById(id).classList.add('open');}
+function openModal(id){
+  document.getElementById(id).classList.add('open');
+  history.pushState({sikosModal:id},'',location.hash||'#'+currentPage);
+}
 function showDetailModal(title,rows,actionsHtml){
   document.getElementById('detail-modal-title').textContent=title;
   document.getElementById('detail-modal-body').innerHTML=rows.map(r=>`
@@ -1809,7 +1885,7 @@ const pageConfig={
   laporan:{title:'Laporan Rekap',icon:IC('file-text'),addBtn:false},
   pengaturan:{title:'Pengaturan',icon:IC('settings'),addBtn:false},
 };
-function showPage(name){
+function showPage(name,fromPopstate){
   if(!pageConfig[name])name='dashboard';
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
@@ -1822,12 +1898,44 @@ function showPage(name){
   if(cfg.addBtn){ab.style.display='';ab._modal=cfg.modal;}else ab.style.display='none';
   currentPage=name;
   localStorage.setItem('sikos_last_page',name);
+  if(!fromPopstate){history.pushState({sikosPage:name},'','#'+name);}
   renderPage(name);
   closeSidebar();
   // Scroll konten ke atas saat ganti halaman
   const content=document.getElementById('content-root');
   if(content)content.scrollTop=0;
   window.scrollTo(0,0);
+}
+// ============================================================
+// NAVIGASI TOMBOL BACK: jangan langsung menutup aplikasi
+// ============================================================
+let _exitConfirmPending=false,_exitConfirmTimer=null;
+function initBackButtonHandling(){
+  if(!history.state||!history.state.sikosPage){
+    history.replaceState({sikosPage:currentPage||'dashboard'},'','#'+(currentPage||'dashboard'));
+  }
+  window.addEventListener('popstate',(e)=>{
+    const st=e.state;
+    const openModalEl=document.querySelector('.modal-overlay.open');
+    if(openModalEl){openModalEl.classList.remove('open');return;}
+    if(st&&st.sikosPage){
+      if(st.sikosPage==='dashboard'&&currentPage==='dashboard'){handleExitConfirm();return;}
+      showPage(st.sikosPage,true);
+    }else{
+      handleExitConfirm();
+    }
+  });
+}
+function handleExitConfirm(){
+  if(_exitConfirmPending){
+    _exitConfirmPending=false;clearTimeout(_exitConfirmTimer);
+    return; // ijinkan browser lanjut keluar/kembali seperti normal
+  }
+  _exitConfirmPending=true;
+  showToast('Tekan tombol kembali sekali lagi untuk keluar','info');
+  history.pushState({sikosPage:'dashboard'},'','#dashboard');
+  if(currentPage!=='dashboard')showPage('dashboard',true);
+  _exitConfirmTimer=setTimeout(()=>{_exitConfirmPending=false;},2500);
 }
 function openAddModal(){const cfg=pageConfig[currentPage];if(cfg&&cfg.modal)cfg.modal();}
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebar-overlay').classList.toggle('open');}
@@ -1923,61 +2031,6 @@ function renderNotifBanners(containerId){
   const nb=document.getElementById('nb-notif');
   if(nb)nb.textContent=notifs.length;
 }
-// ============================================================
-// ALARM JADWAL BERSIH-BERSIH
-// ============================================================
-function getAlarmBersih(){try{return JSON.parse(localStorage.getItem('sikos_alarm_bersih')||'[]');}catch(e){return [];}}
-function saveAlarmBersihList(arr){localStorage.setItem('sikos_alarm_bersih',JSON.stringify(arr));}
-function addAlarmBersih(){
-  const jam=document.getElementById('alarm-bersih-jam').value;
-  const label=document.getElementById('alarm-bersih-label').value.trim()||'Waktunya bersih-bersih!';
-  if(!jam){showToast('Pilih jam alarm dulu','error');return;}
-  const arr=getAlarmBersih();
-  arr.push({id:genId(),jam,label,aktif:true});
-  saveAlarmBersihList(arr);
-  document.getElementById('alarm-bersih-label').value='';
-  renderAlarmBersih();
-  showToast('Alarm ditambahkan');
-  requestBrowserNotif();
-}
-function toggleAlarmBersih(id){
-  const arr=getAlarmBersih().map(a=>a.id===id?{...a,aktif:!a.aktif}:a);
-  saveAlarmBersihList(arr);renderAlarmBersih();
-}
-function deleteAlarmBersih(id){
-  saveAlarmBersihList(getAlarmBersih().filter(a=>a.id!==id));
-  renderAlarmBersih();showToast('Alarm dihapus');
-}
-function renderAlarmBersih(){
-  const el=document.getElementById('alarm-bersih-list');if(!el)return;
-  const arr=getAlarmBersih().sort((a,b)=>a.jam.localeCompare(b.jam));
-  if(!arr.length){el.innerHTML='<p style="text-align:center;color:var(--gray1);font-size:12.5px;padding:14px 0">Belum ada alarm terjadwal.</p>';return;}
-  el.innerHTML=arr.map(a=>`
-    <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--gray3);border-radius:10px;margin-bottom:8px">
-      <div style="font-family:var(--mono);font-weight:800;font-size:16px;color:var(--navy)">${a.jam}</div>
-      <div style="flex:1;font-size:12.5px;color:var(--navy);font-weight:600">${escHtml(a.label)}</div>
-      <label style="position:relative;display:inline-block;width:38px;height:22px;flex-shrink:0">
-        <input type="checkbox" ${a.aktif?'checked':''} onchange="toggleAlarmBersih('${a.id}')" style="opacity:0;width:0;height:0">
-        <span onclick="toggleAlarmBersih('${a.id}')" style="position:absolute;cursor:pointer;inset:0;background:${a.aktif?'var(--gold)':'#d1d5db'};border-radius:22px;transition:.2s"></span>
-        <span onclick="toggleAlarmBersih('${a.id}')" style="position:absolute;left:${a.aktif?'18px':'2px'};top:2px;width:18px;height:18px;background:#fff;border-radius:50%;transition:.2s;pointer-events:none"></span>
-      </label>
-      <button class="btn btn-danger btn-xs" onclick="deleteAlarmBersih('${a.id}')">🗑️</button>
-    </div>`).join('');
-}
-let _lastAlarmMinuteChecked='';
-function checkAlarmBersih(){
-  const now=new Date();
-  const hhmm=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
-  if(hhmm===_lastAlarmMinuteChecked)return;
-  _lastAlarmMinuteChecked=hhmm;
-  getAlarmBersih().filter(a=>a.aktif&&a.jam===hhmm).forEach(a=>{
-    showToast('🔔 '+a.label,'info');
-    if('Notification' in window && Notification.permission==='granted'){
-      try{new Notification('🔔 DKos — '+a.label,{body:'Waktunya cek jadwal bersih-bersih kos.',icon:'./icon-192.png'});}catch(e){}
-    }
-  });
-}
-setInterval(checkAlarmBersih,20000);
 
 function requestBrowserNotif(){
   if('Notification' in window&&Notification.permission==='default'){
@@ -2128,6 +2181,27 @@ function deleteKamar(id){
   showToast('Kamar dihapus');renderKamar();
 }
 function getKamarViewMode(){return localStorage.getItem('sikos_kamar_view')||'besar';}
+// ============================================================
+// URUTKAN (A-Z/Z-A untuk nama, Terbaru/Terlama untuk tanggal)
+// ============================================================
+function getSortPref(key,fallback){return localStorage.getItem('sort_'+key)||fallback;}
+function setSortPref(key,val){localStorage.setItem('sort_'+key,val);}
+function sortByName(arr,nameField,order){
+  const out=[...arr];
+  out.sort((a,b)=>{
+    const an=String(a[nameField]||'').toLowerCase(),bn=String(b[nameField]||'').toLowerCase();
+    return order==='za'?bn.localeCompare(an):an.localeCompare(bn);
+  });
+  return out;
+}
+function sortByDate(arr,dateField,order){
+  const out=[...arr];
+  out.sort((a,b)=>{
+    const ad=String(a[dateField]||''),bd=String(b[dateField]||'');
+    return order==='lama'?ad.localeCompare(bd):bd.localeCompare(ad);
+  });
+  return out;
+}
 function toggleViewDropdown(key){
   const menu=document.getElementById(key+'-view-menu');if(!menu)return;
   const isOpen=menu.classList.contains('open');
@@ -2137,6 +2211,11 @@ function toggleViewDropdown(key){
 document.addEventListener('click',function(e){
   if(!e.target.closest('.view-switch-dd')) document.querySelectorAll('.vs-dd-menu').forEach(m=>m.classList.remove('open'));
 });
+function setKamarSort(order){
+  setSortPref('kamar',order);
+  document.querySelectorAll('.vs-dd-menu').forEach(m=>m.classList.remove('open'));
+  renderKamar();
+}
 function setKamarViewMode(mode){
   localStorage.setItem('sikos_kamar_view',mode);
   document.querySelectorAll('#kamar-view-menu .vs-dd-item').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
@@ -2199,8 +2278,10 @@ function roomGalleryItemHtml(k){
     </div>`;
 }
 function renderKamar(){
-  const all=load(KEYS.kamar);
+  let all=load(KEYS.kamar);
   all.forEach(k=>{k.foto=kamarPhotosCache[k.id]||[];});
+  all=sortByName(all,'nama',getSortPref('kamar','az'));
+  document.querySelectorAll('#kamar-sort-view-menu .vs-dd-item').forEach(b=>b.classList.toggle('active',b.dataset.sort===getSortPref('kamar','az')));
   const kosong=all.filter(x=>x.status==='kosong').length,terisi=all.filter(x=>x.status==='terisi').length;
   const req=all.filter(x=>x.request==='ya').length;
   document.getElementById('kamar-stats').innerHTML=`
@@ -2294,7 +2375,8 @@ function buildLandingHtml(){
 .fas-lb-body p{font-size:12px;color:#6b7280}
 .sec-head-row{display:flex;align-items:center;justify-content:center;position:relative;margin-bottom:18px}
 .sec-head-row h2{margin-bottom:0}
-.view-switch-dd{position:absolute;right:0;top:50%;transform:translateY(-50%)}
+.sec-head-actions{position:absolute;right:0;top:50%;transform:translateY(-50%);display:flex;gap:8px}
+.view-switch-dd{position:relative}
 .vs-dd-btn{width:36px;height:36px;border-radius:9px;border:1px solid #e5e7eb;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#6b7280}
 .vs-dd-btn:hover{background:#f3f4f6;color:#1a2744}
 .vs-dd-menu{display:none;position:absolute;right:0;top:calc(100% + 6px);background:#fff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.15);padding:5px;min-width:150px;z-index:60}
@@ -2332,7 +2414,15 @@ function buildLandingHtml(){
 <div class="cta-row"><a class="cta" href="${wa}" target="_blank">💬 Hubungi via WhatsApp</a><button class="cta outline" onclick="sharePage()">🔗 Bagikan Halaman</button></div></div>
 ${fasArr.length?`<div class="sec"><h2>Fasilitas Umum</h2><div class="pills">${fasArr.map(f=>`<div class="pill${fasUmumFoto[f.toLowerCase()]?' has-foto':''}" onclick="openFasLightbox('umum',-1,${JSON.stringify(f).replace(/"/g,'&quot;')})">${escHtml(f)}${fasUmumFoto[f.toLowerCase()]?' 📷':''}</div>`).join('')}</div></div>`:''}
 <div class="sec"><div class="sec-head-row"><h2 style="margin-bottom:0">Pilihan Kamar</h2>
-${hasRooms?`<div class="view-switch-dd" id="rooms-view-switch">
+${hasRooms?`<div class="sec-head-actions">
+<div class="view-switch-dd" id="rooms-sort-switch">
+  <button class="vs-dd-btn" onclick="toggleViewDropdown('rooms-sort')" title="Urutkan"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4-4 4 4"/><path d="M7 4v16"/><path d="M21 16l-4 4-4-4"/><path d="M17 20V4"/></svg></button>
+  <div class="vs-dd-menu" id="rooms-sort-view-menu">
+    <button class="vs-dd-item" data-sort="az" onclick="setRoomsSort('az')">Nama A → Z</button>
+    <button class="vs-dd-item" data-sort="za" onclick="setRoomsSort('za')">Nama Z → A</button>
+  </div>
+</div>
+<div class="view-switch-dd" id="rooms-view-switch">
   <button class="vs-dd-btn" onclick="toggleViewDropdown('rooms')" title="Tampilan"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button>
   <div class="vs-dd-menu" id="rooms-view-menu">
     <button class="vs-dd-item" data-mode="besar" onclick="setRoomsView('besar')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>Besar</button>
@@ -2340,6 +2430,7 @@ ${hasRooms?`<div class="view-switch-dd" id="rooms-view-switch">
     <button class="vs-dd-item" data-mode="detail" onclick="setRoomsView('detail')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Detail</button>
     <button class="vs-dd-item" data-mode="galeri" onclick="setRoomsView('galeri')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Galeri</button>
   </div>
+</div>
 </div>`:''}
 </div>
 <div id="rooms-container" class="rooms"></div></div>
@@ -2457,18 +2548,35 @@ function roomGalleryItem(k,i){
     + '<div style="font-family:monospace;font-size:12px;margin-top:2px">Rp '+Number(k.harga||0).toLocaleString('id-ID')+'<span style="opacity:.8"> /bln</span></div>'
     + '</div></div>';
 }
+function getSortedRoomIndices(){
+  let order='az';try{order=localStorage.getItem('dkos_rooms_sort')||'az';}catch(e){}
+  const idx=ROOMS_DATA.map((r,i)=>i);
+  idx.sort((a,b)=>{
+    const an=(ROOMS_DATA[a].nama||'').toLowerCase(),bn=(ROOMS_DATA[b].nama||'').toLowerCase();
+    return order==='za'?bn.localeCompare(an):an.localeCompare(bn);
+  });
+  return idx;
+}
+function setRoomsSort(order){
+  try{localStorage.setItem('dkos_rooms_sort',order);}catch(e){}
+  document.querySelectorAll('#rooms-sort-view-menu .vs-dd-item').forEach(b=>b.classList.toggle('active',b.dataset.sort===order));
+  document.querySelectorAll('.vs-dd-menu').forEach(m=>m.classList.remove('open'));
+  const activeModeBtn=document.querySelector('#rooms-view-menu .vs-dd-item.active');
+  renderRoomsView(activeModeBtn?activeModeBtn.dataset.mode:'besar');
+}
 function renderRoomsView(mode){
   const c=document.getElementById('rooms-container');
   if(!ROOMS_DATA.length){c.className='rooms';c.innerHTML='<p style="text-align:center;color:#6b7280;grid-column:1/-1">Belum ada data kamar.</p>';return;}
+  const idxList=getSortedRoomIndices();
   if(mode==='detail'){
     c.className='room-list-lp';
-    c.innerHTML=ROOMS_DATA.map((k,i)=>roomListRow(k,i)).join('');
+    c.innerHTML=idxList.map(i=>roomListRow(ROOMS_DATA[i],i)).join('');
   }else if(mode==='galeri'){
     c.className='room-gallery-lp';
-    c.innerHTML=ROOMS_DATA.map((k,i)=>roomGalleryItem(k,i)).join('');
+    c.innerHTML=idxList.map(i=>roomGalleryItem(ROOMS_DATA[i],i)).join('');
   }else{
     c.className='rooms'+(mode==='baris3'?' mode-baris3':'');
-    c.innerHTML=ROOMS_DATA.map((k,i)=>roomCardBesar(k,i)).join('');
+    c.innerHTML=idxList.map(i=>roomCardBesar(ROOMS_DATA[i],i)).join('');
   }
 }
 function toggleViewDropdown(key){
@@ -2700,6 +2808,11 @@ function openPenyewaModal(editId=null){
     autofillHargaKamar();
     hitungJatuhTempo();
   }
+  const catatKasRow=document.getElementById('penyewa-catat-kas-row');
+  if(catatKasRow){
+    catatKasRow.style.display=editId?'none':'block';
+    document.getElementById('penyewa-catat-kas').checked=!editId;
+  }
   toggleTglKeluar();
   openModal('modal-penyewa');
 }
@@ -2729,6 +2842,23 @@ function syncKamarStatus(){
   save(KEYS.kamar,load(KEYS.kamar).map(k=>k.status==='renovasi'?k:{...k,status:occ.has(k.id)?'terisi':'kosong'}));
   _suppressHistory=false;
 }
+function applyPenyewaSort(arr){
+  const order=getSortPref('penyewa','az');
+  if(order==='kamar-az'||order==='kamar-za'){
+    const out=[...arr];
+    out.sort((a,b)=>{
+      const an=getKamarNama(a.kamarId).toLowerCase(),bn=getKamarNama(b.kamarId).toLowerCase();
+      return order==='kamar-za'?bn.localeCompare(an):an.localeCompare(bn);
+    });
+    return out;
+  }
+  return sortByName(arr,'nama',order==='za'?'za':'az');
+}
+function setPenyewaSort(order){
+  setSortPref('penyewa',order);
+  document.querySelectorAll('.vs-dd-menu').forEach(m=>m.classList.remove('open'));
+  renderPenyewa();
+}
 function renderPenyewa(){
   renderNotifBanners('penyewa-notif-area');
   const all=load(KEYS.penyewa);
@@ -2743,7 +2873,9 @@ function renderPenyewa(){
   if(_penyewaTab==='board')renderPenyewaBoard();else renderPenyewaTabel();
 }
 function renderPenyewaBoard(){
-  const aktif=load(KEYS.penyewa).filter(x=>x.status==='aktif');
+  let aktif=load(KEYS.penyewa).filter(x=>x.status==='aktif');
+  aktif=applyPenyewaSort(aktif);
+  document.querySelectorAll('#penyewa-sort-view-menu .vs-dd-item').forEach(b=>b.classList.toggle('active',b.dataset.sort===getSortPref('penyewa','az')));
   const tod=today();
   const board=document.getElementById('penyewa-board');
   if(!aktif.length){board.innerHTML='<div class="empty-state"><div class="empty-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><p>Belum ada penyewa aktif.</p></div>';return;}
@@ -2779,7 +2911,7 @@ function renderPenyewaTabel(){
   const all=load(KEYS.penyewa);
   const search=document.getElementById('penyewa-search')?.value?.toLowerCase()||'';
   const filter=document.getElementById('penyewa-filter')?.value||'';
-  const rows=[...all].sort((a,b)=>b.tglMasuk?.localeCompare(a.tglMasuk||'')||0).filter(x=>(!filter||x.status===filter)&&(!search||x.nama.toLowerCase().includes(search)||getKamarNama(x.kamarId).toLowerCase().includes(search)));
+  const rows=applyPenyewaSort([...all]).filter(x=>(!filter||x.status===filter)&&(!search||x.nama.toLowerCase().includes(search)||getKamarNama(x.kamarId).toLowerCase().includes(search)));
   const table=document.getElementById('penyewa-table');
   if(!rows.length){table.innerHTML='<tr><td colspan="10" style="text-align:center;padding:32px;color:var(--gray1)">Tidak ada data</td></tr>';return;}
   const tod=today();
@@ -2899,6 +3031,11 @@ function deleteKas(type,id){
   save(m.key,load(m.key).filter(x=>x.id!==id),'Hapus Kas '+m.label);
   showToast('Transaksi dihapus');renderPage(currentPage);
 }
+function setSortAndRender(prefix,order,renderFnName){
+  setSortPref(prefix,order);
+  document.querySelectorAll('.vs-dd-menu').forEach(m=>m.classList.remove('open'));
+  if(typeof window[renderFnName]==='function')window[renderFnName]();
+}
 function renderKasPage(type,statsId,tableId,searchId,filterId){
   const m=kasMap[type];const all=load(m.key);const c=calcKas(all);
   document.getElementById(statsId).innerHTML=`
@@ -2908,7 +3045,10 @@ function renderKasPage(type,statsId,tableId,searchId,filterId){
     <div class="stat-card blue"><div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div><div class="stat-label">Transaksi</div><div class="stat-value">${all.length}</div></div>`;
   const search=document.getElementById(searchId)?.value?.toLowerCase()||'';
   const filter=document.getElementById(filterId)?.value||'';
-  const rows=[...all].sort((a,b)=>b.tgl?.localeCompare(a.tgl||'')||0).filter(x=>(!filter||x.jenis===filter)&&(!search||x.ket?.toLowerCase().includes(search)));
+  const sortKey=tableId.replace('-table','');
+  const sortOrder=getSortPref(sortKey,'baru');
+  document.querySelectorAll('#'+sortKey+'-sort-view-menu .vs-dd-item').forEach(b=>b.classList.toggle('active',b.dataset.sort===sortOrder));
+  const rows=sortByDate([...all],'tgl',sortOrder).filter(x=>(!filter||x.jenis===filter)&&(!search||x.ket?.toLowerCase().includes(search)));
   const table=document.getElementById(tableId);
   if(!rows.length){table.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--gray1)">Belum ada transaksi ${m.label}</td></tr>`;return;}
   table.innerHTML=`<thead><tr><th>Tanggal</th><th>Waktu</th><th>Jenis</th><th>Keterangan</th><th>Jumlah</th><th>Catatan</th><th>Aksi</th></tr></thead><tbody>${rows.map(x=>`<tr>
@@ -3058,7 +3198,9 @@ function renderKasSewa(){
     <div class="stat-card blue"><div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div><div class="stat-label">Transaksi</div><div class="stat-value">${all.length}</div></div>`;
   const search=document.getElementById('sewa-search')?.value?.toLowerCase()||'';
   const filter=document.getElementById('sewa-filter')?.value||'';
-  const rows=[...all].sort((a,b)=>b.tgl?.localeCompare(a.tgl||'')||0).filter(x=>(!filter||x.metode===filter)&&(!search||x.penyewaNama?.toLowerCase().includes(search)));
+  const sewaSortOrder=getSortPref('sewa','baru');
+  document.querySelectorAll('#sewa-sort-view-menu .vs-dd-item').forEach(b=>b.classList.toggle('active',b.dataset.sort===sewaSortOrder));
+  const rows=sortByDate([...all],'tgl',sewaSortOrder).filter(x=>(!filter||x.metode===filter)&&(!search||x.penyewaNama?.toLowerCase().includes(search)));
   const table=document.getElementById('sewa-table');
   if(!rows.length){table.innerHTML='<tr><td colspan="8" style="text-align:center;padding:32px;color:var(--gray1)">Belum ada pembayaran</td></tr>';return;}
   table.innerHTML=`<thead><tr><th>Tanggal</th><th>Penyewa</th><th>Tipe</th><th>Periode</th><th>Jumlah</th><th>Metode</th><th>Catatan</th><th>Aksi</th></tr></thead><tbody>${rows.map(x=>`<tr>
@@ -3179,7 +3321,9 @@ function renderSarpras(){
     <div class="stat-card gold"><div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><div class="stat-label">Perbaikan</div><div class="stat-value">${perbaikan}</div></div>
     <div class="stat-card red"><div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="stat-label">Total Biaya</div><div class="stat-value">${rp(biaya)}</div></div>`;
   const search=document.getElementById('sarpras-search')?.value?.toLowerCase()||'';const filter=document.getElementById('sarpras-filter')?.value||'';
-  const rows=[...all].sort((a,b)=>b.tgl?.localeCompare(a.tgl||'')||0).filter(x=>(!filter||x.kat===filter)&&(!search||x.nama?.toLowerCase().includes(search)));
+  const sarprasSortOrder=getSortPref('sarpras','baru');
+  document.querySelectorAll('#sarpras-sort-view-menu .vs-dd-item').forEach(b=>b.classList.toggle('active',b.dataset.sort===sarprasSortOrder));
+  const rows=sortByDate([...all],'tgl',sarprasSortOrder).filter(x=>(!filter||x.kat===filter)&&(!search||x.nama?.toLowerCase().includes(search)));
   const sb=s=>({aktif:'badge-green',perbaikan:'badge-yellow','tidak aktif':'badge-gray'}[s]||'badge-gray');
   const mb=m=>({masuk:'badge-blue',keluar:'badge-red',perbaikan:'badge-yellow'}[m]||'badge-gray');
   const table=document.getElementById('sarpras-table');
@@ -3228,31 +3372,65 @@ function renderBersihItems(){
       </div>
     </div>`).join('');
 }
+function setBersihViewMode(mode){
+  setSortPref('bersih-viewmode',mode);
+  document.querySelectorAll('#bersih-viewmode-view-menu .vs-dd-item').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
+  document.querySelectorAll('.vs-dd-menu').forEach(m=>m.classList.remove('open'));
+  renderBersihKamarGrid();
+}
 function renderBersihKamarGrid(){
-  const kamar=load(KEYS.kamar);const tgl=document.getElementById('bersih-tgl-aktif').value;
+  let kamar=load(KEYS.kamar);const tgl=document.getElementById('bersih-tgl-aktif').value;
   const sessions=loadObj(KEYS.bersihSessions,{});
   const grid=document.getElementById('bersih-kamar-grid');
+  const sortOrder=getSortPref('bersih','az');
+  document.querySelectorAll('#bersih-sort-view-menu .vs-dd-item').forEach(b=>b.classList.toggle('active',b.dataset.sort===sortOrder));
+  kamar=sortByName(kamar,'nama',sortOrder);
+  const viewMode=getSortPref('bersih-viewmode','grid');
+  document.querySelectorAll('#bersih-viewmode-view-menu .vs-dd-item').forEach(b=>b.classList.toggle('active',b.dataset.mode===viewMode));
   if(!kamar.length){grid.innerHTML='<div class="empty-state"><p>Tambahkan kamar terlebih dahulu.</p></div>';return;}
-  grid.innerHTML=kamar.map(k=>{
-    const key=`${k.id}_${tgl}`;const s=sessions[key];
-    const items=load(KEYS.bersihItems).filter(x=>x.aktif);
-    const done=s?items.filter(it=>s[it.id]).length:0;const total=items.length;
-    const pct=total>0?Math.round(done/total*100):0;
-    return`<div class="bersih-kamar-btn" onclick="openBersihKamar('${k.id}','${tgl}')">
-      <div class="bk-icon">🛏️</div>
-      <div class="bk-name">${escHtml(k.nama)}</div>
-      <div class="bk-status">${done}/${total} item (${pct}%)</div>
-      <div style="background:var(--gray2);border-radius:6px;height:5px;margin-top:6px;overflow:hidden">
-        <div style="height:100%;width:${pct}%;background:${pct===100?'var(--green)':pct>50?'var(--gold)':'var(--gray1)'};border-radius:6px;transition:width .3s"></div>
-      </div>
-    </div>`;
-  }).join('');
+  const items=load(KEYS.bersihItems).filter(x=>x.aktif);
+  if(viewMode==='detail'){
+    grid.className='room-list';
+    grid.innerHTML=kamar.map(k=>{
+      const key=`${k.id}_${tgl}`;const s=sessions[key];
+      const done=s?items.filter(it=>s[it.id]).length:0;const total=items.length;
+      const pct=total>0?Math.round(done/total*100):0;
+      const doneNames=s?items.filter(it=>s[it.id]).map(it=>it.nama):[];
+      return`<div class="room-list-row" onclick="openBersihKamar('${k.id}','${tgl}')" style="cursor:pointer">
+        <div class="rl-noimg">🛏️</div>
+        <div class="rl-body">
+          <div style="display:flex;justify-content:space-between;align-items:start;gap:8px;flex-wrap:wrap">
+            <div style="font-weight:700;font-size:14.5px">${escHtml(k.nama)}</div>
+            <span class="badge ${pct===100?'badge-green':pct>0?'badge-gold':'badge-red'}">${done}/${total} item (${pct}%)</span>
+          </div>
+          <div style="font-size:11.5px;color:var(--gray1);margin-top:5px">${doneNames.length?'✅ '+doneNames.join(', '):'Belum ada item yang diselesaikan'}</div>
+          <div style="background:var(--gray2);border-radius:6px;height:5px;margin-top:8px;overflow:hidden">
+            <div style="height:100%;width:${pct}%;background:${pct===100?'var(--green)':pct>50?'var(--gold)':'var(--gray1)'};border-radius:6px"></div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }else{
+    grid.className='bersih-kamar-grid';
+    grid.innerHTML=kamar.map(k=>{
+      const key=`${k.id}_${tgl}`;const s=sessions[key];
+      const done=s?items.filter(it=>s[it.id]).length:0;const total=items.length;
+      const pct=total>0?Math.round(done/total*100):0;
+      return`<div class="bersih-kamar-btn" onclick="openBersihKamar('${k.id}','${tgl}')">
+        <div class="bk-icon">🛏️</div>
+        <div class="bk-name">${escHtml(k.nama)}</div>
+        <div class="bk-status">${done}/${total} item (${pct}%)</div>
+        <div style="background:var(--gray2);border-radius:6px;height:5px;margin-top:6px;overflow:hidden">
+          <div style="height:100%;width:${pct}%;background:${pct===100?'var(--green)':pct>50?'var(--gold)':'var(--gray1)'};border-radius:6px;transition:width .3s"></div>
+        </div>
+      </div>`;
+    }).join('');
+  }
 }
 function renderBersih(){
   renderBersihItems();
   const tglEl=document.getElementById('bersih-tgl-aktif');if(!tglEl.value)tglEl.value=today();
   renderBersihKamarGrid();
-  renderAlarmBersih();
   renderBersihRiwayat();
 }
 function renderBersihRiwayat(){
@@ -3489,6 +3667,124 @@ function showExportModal(){openModal('modal-export');}
 // DATABASE BACKUP / RESTORE
 // ============================================================
 function openDbModal(){openModal('modal-db');}
+// ============================================================
+// SINKRONISASI CLOUD (Firebase + Google Sign-In)
+// ============================================================
+let _fbApp=null,_fbAuth=null,_fbDb=null,_fbUser=null,_fbSdkLoaded=false;
+function loadScriptOnce(src){
+  return new Promise((resolve,reject)=>{
+    if(document.querySelector(`script[src="${src}"]`)){resolve();return;}
+    const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=()=>reject(new Error('Gagal memuat '+src));
+    document.head.appendChild(s);
+  });
+}
+function getFirebaseConfig(){try{return JSON.parse(localStorage.getItem('dkos_firebase_config')||'null');}catch(e){return null;}}
+function saveFirebaseConfig(){
+  const raw=document.getElementById('firebase-config-input').value.trim();
+  if(!raw){showToast('Tempel konfigurasi Firebase dulu','error');return;}
+  try{
+    const cfg=JSON.parse(raw);
+    if(!cfg.apiKey||!cfg.projectId){throw new Error('Field apiKey/projectId tidak ditemukan');}
+    localStorage.setItem('dkos_firebase_config',JSON.stringify(cfg));
+    showToast('Konfigurasi Firebase disimpan');
+    initFirebaseCloud();
+  }catch(e){showToast('Format JSON tidak valid: '+e.message,'error');}
+}
+function clearFirebaseConfig(){
+  if(!confirm('Hapus konfigurasi Firebase dari HP ini?'))return;
+  localStorage.removeItem('dkos_firebase_config');
+  _fbApp=null;_fbAuth=null;_fbDb=null;_fbUser=null;
+  document.getElementById('firebase-config-input').value='';
+  renderFirebaseStatus();
+  showToast('Konfigurasi dihapus');
+}
+async function initFirebaseCloud(){
+  const cfg=getFirebaseConfig();
+  const box=document.getElementById('firebase-status-box');
+  if(!box)return; // halaman Pengaturan belum dibuka
+  if(!cfg){box.innerHTML='⚪ Belum ada konfigurasi Firebase. Ikuti panduan di atas lalu tempel konfigurasinya.';document.getElementById('firebase-actions-box').style.display='none';return;}
+  box.innerHTML='🔄 Menghubungkan ke Firebase…';
+  try{
+    if(!_fbSdkLoaded){
+      await loadScriptOnce('https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js');
+      await loadScriptOnce('https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js');
+      await loadScriptOnce('https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js');
+      _fbSdkLoaded=true;
+    }
+    if(!_fbApp){_fbApp=firebase.initializeApp(cfg);}
+    _fbAuth=firebase.auth();_fbDb=firebase.firestore();
+    document.getElementById('firebase-actions-box').style.display='block';
+    _fbAuth.onAuthStateChanged(user=>{
+      _fbUser=user;
+      document.getElementById('btn-google-signin').style.display=user?'none':'inline-flex';
+      document.getElementById('btn-google-signout').style.display=user?'inline-flex':'none';
+      document.getElementById('firebase-sync-buttons').style.display=user?'flex':'none';
+      if(user){
+        box.innerHTML=`✅ Terhubung sebagai <strong>${escHtml(user.displayName||user.email)}</strong> (${escHtml(user.email||'')})`;
+      }else{
+        box.innerHTML='🟡 Firebase siap. Silakan masuk dengan Google untuk mulai sinkron.';
+      }
+    });
+  }catch(e){
+    box.innerHTML='❌ Gagal menghubungkan: '+e.message+'. Cek lagi konfigurasi yang ditempel.';
+  }
+}
+async function signInWithGoogleCloud(){
+  if(!_fbAuth){showToast('Firebase belum siap','error');return;}
+  try{
+    const provider=new firebase.auth.GoogleAuthProvider();
+    await _fbAuth.signInWithPopup(provider);
+    showToast('Berhasil masuk dengan Google');
+  }catch(e){showToast('Gagal masuk: '+e.message,'error');}
+}
+async function signOutCloud(){
+  if(!_fbAuth)return;
+  await _fbAuth.signOut();
+  showToast('Berhasil keluar akun');
+}
+function buildCloudSyncPayload(){
+  const data={};Object.entries(KEYS).forEach(([,k])=>{const v=localStorage.getItem(k);if(v)data[k]=JSON.parse(v);});
+  return data;
+}
+async function pushDataToCloud(){
+  if(!_fbUser||!_fbDb){showToast('Masuk dengan Google dulu','error');return;}
+  if(!confirm('Unggah data HP ini ke cloud? Data cloud yang lama (jika ada) akan ditimpa.'))return;
+  try{
+    showToast('Mengunggah data…','info');
+    const payload=buildCloudSyncPayload();
+    await _fbDb.collection('dkos_users').doc(_fbUser.uid).set({
+      data:payload,updatedAt:new Date().toISOString(),updatedBy:_fbUser.email||''
+    });
+    showToast('✅ Data berhasil diunggah ke cloud');
+  }catch(e){showToast('Gagal unggah: '+e.message,'error');}
+}
+async function pullDataFromCloud(){
+  if(!_fbUser||!_fbDb){showToast('Masuk dengan Google dulu','error');return;}
+  if(!confirm('Ambil data dari cloud? Data di HP ini akan ditimpa dengan data dari cloud.'))return;
+  try{
+    showToast('Mengambil data…','info');
+    const doc=await _fbDb.collection('dkos_users').doc(_fbUser.uid).get();
+    if(!doc.exists){showToast('Belum ada data tersimpan di cloud untuk akun ini','error');return;}
+    const {data}=doc.data();
+    _suppressHistory=true;
+    Object.entries(data).forEach(([k,v])=>localStorage.setItem(k,JSON.stringify(v)));
+    _suppressHistory=false;
+    undoStack=[];redoStack=[];updateUndoUI();
+    updateSidebarBrand();
+    showToast('✅ Data berhasil diambil dari cloud');
+    setTimeout(()=>renderPage(currentPage),400);
+  }catch(e){showToast('Gagal ambil data: '+e.message,'error');}
+}
+function renderFirebaseStatus(){
+  const cfg=getFirebaseConfig();
+  if(cfg){
+    document.getElementById('firebase-config-input').value=JSON.stringify(cfg,null,2);
+    initFirebaseCloud();
+  }else{
+    const box=document.getElementById('firebase-status-box');
+    if(box)box.innerHTML='⚪ Belum ada konfigurasi Firebase. Ikuti panduan di atas lalu tempel konfigurasinya.';
+  }
+}
 async function exportDB(){
   const data={};Object.entries(KEYS).forEach(([,k])=>{const v=localStorage.getItem(k);if(v)data[k]=JSON.parse(v);});
   data._kamarFoto=kamarPhotosCache;
@@ -3802,7 +4098,9 @@ function renderKasPerbaikan(){
 
   const search = document.getElementById('perbaikan-search')?.value?.toLowerCase()||'';
   const filter = document.getElementById('perbaikan-filter')?.value||'';
-  const rows = [...all].sort((a,b)=>(b.tgl||'').localeCompare(a.tgl||''))
+  const perbaikanSortOrder=getSortPref('perbaikan','baru');
+  document.querySelectorAll('#perbaikan-sort-view-menu .vs-dd-item').forEach(b=>b.classList.toggle('active',b.dataset.sort===perbaikanSortOrder));
+  const rows = sortByDate([...all],'tgl',perbaikanSortOrder)
     .filter(x=>(!filter||x.jenis===filter)&&(!search||(x.ket||'').toLowerCase().includes(search)||(x.lokasi||'').toLowerCase().includes(search)));
 
   const tbl = document.getElementById('perbaikan-table');
@@ -3851,7 +4149,9 @@ function renderInventaris(){
     <div class="stat-card red"><div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><div class="stat-label">Hilang</div><div class="stat-value">${hilang}</div></div>`;
   const search=document.getElementById('inv-search')?.value?.toLowerCase()||'';
   const filter=document.getElementById('inv-filter')?.value||'';
-  const rows=[...all].sort((a,b)=>(b.tgl||'').localeCompare(a.tgl||''))
+  const invSortOrder=getSortPref('inv','baru');
+  document.querySelectorAll('#inv-sort-view-menu .vs-dd-item').forEach(b=>b.classList.toggle('active',b.dataset.sort===invSortOrder));
+  const rows=sortByDate([...all],'tgl',invSortOrder)
     .filter(x=>(!filter||x.status===filter)&&(!search||(x.nama+x.lokasi).toLowerCase().includes(search)));
   const sb=s=>({'baik':'badge-green','rusak ringan':'badge-yellow','rusak berat':'badge-red','hilang':'badge-gray'}[s]||'badge-gray');
   const tbl=document.getElementById('inv-table');
@@ -3964,6 +4264,19 @@ function savePenyewa(){
     // Check in baru
     catatRiwayatSewa({id:newId,...data}, 'masuk', `Masuk baru, durasi ${dur} bln`);
     showToast('Penyewa ditambahkan');
+    const catatKas=document.getElementById('penyewa-catat-kas');
+    if(catatKas&&catatKas.checked&&data.total>0){
+      const kasSewaArr=load(KEYS.kasSewa);
+      const tipePeriode=document.getElementById('penyewa-catat-kas-tipe').value;
+      const metode=document.getElementById('penyewa-catat-kas-metode').value;
+      const bulanLabel=new Date(tglMasuk+'T00:00:00').toLocaleDateString('id-ID',{month:'long',year:'numeric'});
+      kasSewaArr.push({
+        id:genId(),penyewaId:newId,penyewaNama:nama,kamarNama:getKamarNama(data.kamarId),
+        tgl:tglMasuk,waktu:nowTime(),periode:bulanLabel,tipePeriode,statusBayar:'baru',
+        jumlah:data.total,metode,catatan:'Otomatis dicatat saat penyewa baru/lama ditambahkan'
+      });
+      save(KEYS.kasSewa,kasSewaArr,'Catat pembayaran awal: '+nama);
+    }
   }
 
   save(KEYS.penyewa, arr, 'Simpan Penyewa: '+nama);
@@ -4536,7 +4849,6 @@ document.addEventListener('DOMContentLoaded',async ()=>{
   applyTheme(localStorage.getItem('sikos_theme')||'dkos');
   applyLayoutMode(localStorage.getItem('sikos_layout')||'sidebar');
   applyGlassMode(localStorage.getItem('sikos_glass_mode')==='1');
-  applyOrientationMode(localStorage.getItem('sikos_orientation')||'any',true);
   seedData();
   await preloadKamarPhotos();
   await preloadFasilitasFoto();
@@ -4545,6 +4857,7 @@ document.addEventListener('DOMContentLoaded',async ()=>{
   // Buka halaman terakhir yang dibuka, bukan selalu dashboard
   const lastPage=localStorage.getItem('sikos_last_page')||'dashboard';
   showPage(lastPage);
+  initBackButtonHandling();
   setTimeout(requestBrowserNotif,1500);
 });
 </script></body></html>
