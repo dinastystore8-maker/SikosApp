@@ -967,7 +967,26 @@ service cloud.firestore {
               <li>Salin blok <code>firebaseConfig = {"{"}...{"}"}</code> yang muncul, tempel utuh ke kotak di bawah ini.</li>
             </ol>
           </details>
-          <textarea id="firebase-config-input" rows="6" placeholder='Tempel firebaseConfig di sini, contoh:&#10;{&#10;  "apiKey": "...",&#10;  "authDomain": "...",&#10;  "projectId": "...",&#10;  "storageBucket": "...",&#10;  "messagingSenderId": "...",&#10;  "appId": "..."&#10;}' style="width:100%;font-family:var(--mono);font-size:11px;padding:10px;border:1px solid var(--gray2);border-radius:8px;resize:vertical"></textarea>
+          <details style="margin-bottom:10px">
+            <summary style="cursor:pointer;font-size:11.5px;font-weight:700;color:var(--gray1)">⚡ Punya blok firebaseConfig lengkap? Tempel sekali biar kolom di bawah terisi otomatis</summary>
+            <div style="display:flex;gap:8px;margin-top:8px;align-items:flex-start;flex-wrap:wrap">
+              <textarea id="fb-autofill-input" rows="4" placeholder='{ "apiKey": "...", "authDomain": "...", ... }' style="flex:1;min-width:200px;font-family:var(--mono);font-size:10.5px;padding:8px;border:1px solid var(--gray2);border-radius:8px;resize:vertical"></textarea>
+              <button class="btn btn-ghost btn-sm" onclick="autofillFirebaseFields()">Isi Otomatis</button>
+            </div>
+          </details>
+          <div class="form-grid-2">
+            <div class="form-row"><label>API Key</label><input type="text" id="fb-apiKey" placeholder="AIzaSy..."></div>
+            <div class="form-row"><label>Auth Domain</label><input type="text" id="fb-authDomain" placeholder="nama-proyek.firebaseapp.com"></div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-row"><label>Project ID</label><input type="text" id="fb-projectId" placeholder="nama-proyek"></div>
+            <div class="form-row"><label>Storage Bucket</label><input type="text" id="fb-storageBucket" placeholder="nama-proyek.appspot.com"></div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-row"><label>Messaging Sender ID</label><input type="text" id="fb-messagingSenderId" placeholder="123456789012"></div>
+            <div class="form-row"><label>App ID</label><input type="text" id="fb-appId" placeholder="1:123456789012:web:abcabc"></div>
+          </div>
+          <p style="font-size:10.5px;color:var(--gray1);margin:-2px 0 8px;line-height:1.5">Semua nilai ini ada di halaman <strong>Project settings → Your apps</strong> pada blok <code>firebaseConfig</code> yang kamu salin di langkah terakhir panduan di atas — tinggal cocokkan satu-satu ke kolom yang sesuai.</p>
           <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
             <button class="btn btn-primary btn-sm" onclick="saveFirebaseConfig()">💾 Simpan Konfigurasi</button>
             <button class="btn btn-ghost btn-sm" onclick="clearFirebaseConfig()">Hapus Konfigurasi</button>
@@ -3679,22 +3698,31 @@ function loadScriptOnce(src){
   });
 }
 function getFirebaseConfig(){try{return JSON.parse(localStorage.getItem('dkos_firebase_config')||'null');}catch(e){return null;}}
-function saveFirebaseConfig(){
-  const raw=document.getElementById('firebase-config-input').value.trim();
-  if(!raw){showToast('Tempel konfigurasi Firebase dulu','error');return;}
+const FB_FIELD_KEYS=['apiKey','authDomain','projectId','storageBucket','messagingSenderId','appId'];
+function autofillFirebaseFields(){
+  const raw=document.getElementById('fb-autofill-input').value.trim();
+  if(!raw){showToast('Tempel dulu blok firebaseConfig-nya','error');return;}
   try{
-    const cfg=JSON.parse(raw);
-    if(!cfg.apiKey||!cfg.projectId){throw new Error('Field apiKey/projectId tidak ditemukan');}
-    localStorage.setItem('dkos_firebase_config',JSON.stringify(cfg));
-    showToast('Konfigurasi Firebase disimpan');
-    initFirebaseCloud();
-  }catch(e){showToast('Format JSON tidak valid: '+e.message,'error');}
+    // Terima baik format JSON murni maupun potongan kode "const firebaseConfig = {...}"
+    const jsonPart=raw.slice(raw.indexOf('{'),raw.lastIndexOf('}')+1);
+    const cfg=JSON.parse(jsonPart);
+    FB_FIELD_KEYS.forEach(k=>{const el=document.getElementById('fb-'+k);if(el&&cfg[k])el.value=cfg[k];});
+    showToast('Kolom terisi otomatis, cek lagi lalu klik Simpan Konfigurasi');
+  }catch(e){showToast('Tidak bisa dibaca. Pastikan tempel blok { ... } yang lengkap','error');}
+}
+function saveFirebaseConfig(){
+  const cfg={};
+  FB_FIELD_KEYS.forEach(k=>{cfg[k]=document.getElementById('fb-'+k).value.trim();});
+  if(!cfg.apiKey||!cfg.projectId){showToast('API Key dan Project ID wajib diisi','error');return;}
+  localStorage.setItem('dkos_firebase_config',JSON.stringify(cfg));
+  showToast('Konfigurasi Firebase disimpan');
+  initFirebaseCloud();
 }
 function clearFirebaseConfig(){
   if(!confirm('Hapus konfigurasi Firebase dari HP ini?'))return;
   localStorage.removeItem('dkos_firebase_config');
   _fbApp=null;_fbAuth=null;_fbDb=null;_fbUser=null;
-  document.getElementById('firebase-config-input').value='';
+  FB_FIELD_KEYS.forEach(k=>{const el=document.getElementById('fb-'+k);if(el)el.value='';});
   renderFirebaseStatus();
   showToast('Konfigurasi dihapus');
 }
@@ -3778,11 +3806,11 @@ async function pullDataFromCloud(){
 function renderFirebaseStatus(){
   const cfg=getFirebaseConfig();
   if(cfg){
-    document.getElementById('firebase-config-input').value=JSON.stringify(cfg,null,2);
+    FB_FIELD_KEYS.forEach(k=>{const el=document.getElementById('fb-'+k);if(el)el.value=cfg[k]||'';});
     initFirebaseCloud();
   }else{
     const box=document.getElementById('firebase-status-box');
-    if(box)box.innerHTML='⚪ Belum ada konfigurasi Firebase. Ikuti panduan di atas lalu tempel konfigurasinya.';
+    if(box)box.innerHTML='⚪ Belum ada konfigurasi Firebase. Ikuti panduan di atas lalu isi kolom-kolom di bawah.';
   }
 }
 async function exportDB(){
